@@ -9,3 +9,10 @@ amandaT -- 2024-12-02 20:07
     * Merged HTML and Jinja functionings in program components
     * Added Bootstrap to CSS in program components
     * Created representational tables in database organization for: users, recipes, food, news, favorite_recipes
+
+naomiL -- 2024-12-02 22:01
+* Updated Design Doc: Wrote descriptions for site map
+
+jacobL -- 2024-12-03 7:41
+* Recreated site map: included route names
+* Revised component map: Moved HTML to frontend
