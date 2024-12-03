@@ -1,2 +1,11 @@
 naomiL -- 2024-12-02 17:38
-Updated README description
+* Updated README description
+
+amandaT -- 2024-12-02 20:07
+* Added README Install Guide and Launch Codes
+  (Credited from P00 CoolBeans)
+* Updated Design Doc:
+    * Added version information (v1 from would-be v0)
+    * Merged HTML and Jinja functionings in program components
+    * Added Bootstrap to CSS in program components
+    * Created representational tables in database organization for: users, recipes, food, news, favorite_recipes
