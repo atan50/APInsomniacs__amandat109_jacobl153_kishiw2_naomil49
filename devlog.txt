@@ -30,3 +30,17 @@ kishiW -- 2024-12-03 23:33
 
 amandaT -- 2024-12-04 9:01
 * Revised keys readme: add key rundown for Brewery API
+* Created Spoonaculuar API
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-04 10:39
+* Created GeoLocation API guide
+* Moved keys dir into app dir
+* Revised quotas to keys readme
+* Updated design doc:
+  * Removed Location API
+  * Added link for and information for Brewery API
+* Added folders to app dir
+  * static/css
+  * templates
+* Created __init__.py file
+* Created temp.py file for testing CSS before commiting
