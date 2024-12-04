@@ -1,7 +1,7 @@
 # Somni Bites by APInsomniacs
 ## Roster
 Amanda Tan: Project Lead + overall system/file structure\
-Naomi Lai: Routing + favorites page\
+Naomi Lai: Middleware\
 Jacob Lukose: Database\
 Kishi Wijaya: HTML & CSS
 
