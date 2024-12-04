@@ -3,9 +3,6 @@ from flask import render_template
 from flask import request           
 from flask import session
 
-import testmod0
-import os
-
 
 app = Flask(__name__)   
 
