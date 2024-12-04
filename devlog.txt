@@ -44,3 +44,4 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-04 10:39
   * templates
 * Created __init__.py file
 * Created temp.py file for testing CSS before commiting
+* Created requirements.txt
