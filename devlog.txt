@@ -45,3 +45,9 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-04 10:39
 * Created __init__.py file
 * Created temp.py file for testing CSS before commiting
 * Created requirements.txt
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-05 10:59
+* Added routing framework for home, login, Register
+* Refined database organization for recipe names
+* Created databases: users, recipes, food, news, favorite_recipes
+* Experimented with CSS, especially for homepage
