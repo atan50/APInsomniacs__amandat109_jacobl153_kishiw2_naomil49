@@ -48,6 +48,7 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-04 10:39
 
 amandaT, jacobL, kishiW, naomiL -- 2024-12-05 10:59
 * Added routing framework for home, login, Register
+  * Initial errors with running file created and fixed during development
 * Refined database organization for recipe names
 * Created databases: users, recipes, food, news, favorite_recipes
 * Experimented with CSS, especially for homepage
