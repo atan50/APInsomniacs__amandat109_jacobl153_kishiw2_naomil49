@@ -16,3 +16,32 @@ naomiL -- 2024-12-02 22:01
 jacobL -- 2024-12-03 7:41
 * Recreated site map: included route names
 * Revised component map: Moved HTML to frontend
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-03 11:00
+* Created keys dir
+* Created NYT API key
+* Pivoted from Location API to Brewery API
+* Created Brewery API guide
+* Attempted to create readme, however lacking
+
+kishiW -- 2024-12-03 23:33
+* Revised keys readme:
+  * Wrote key rundown for Spoonacular, NYTimes, Geolocation
+
+amandaT -- 2024-12-04 9:01
+* Revised keys readme: add key rundown for Brewery API
+* Created Spoonaculuar API
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-04 10:39
+* Created GeoLocation API guide
+* Moved keys dir into app dir
+* Revised quotas to keys readme
+* Updated design doc:
+  * Removed Location API
+  * Added link for and information for Brewery API
+* Added folders to app dir
+  * static/css
+  * templates
+* Created __init__.py file
+* Created temp.py file for testing CSS before commiting
+* Created requirements.txt
