@@ -52,3 +52,10 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-05 10:59
 * Refined database organization for recipe names
 * Created databases: users, recipes, food, news, favorite_recipes
 * Experimented with CSS, especially for homepage
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-05 10:59
+* Experimented and addressed errors on login
+  * Unsure of testing, more urgent error encountered
+  * Database issues: stemming from connecting files
+* Started API handling: GeoLocation
+* Refining CSS and HTML on Home Page, removed temporary links/redirects
