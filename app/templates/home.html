@@ -24,8 +24,8 @@
             <br>
                 Hello, {{ username }}   
             {% else %}
-                <a href="{{ url_for('login') }}">Log in</a><br>
-                <a href="{{ url_for('register') }}">Register</a>
+                <a id = register href="{{ url_for('register') }}">Register</a>
+                <a id = login href="{{ url_for('login') }}">Log in</a><br>
             {% endif %}
         </div>
 
