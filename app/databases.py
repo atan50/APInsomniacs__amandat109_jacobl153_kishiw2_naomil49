@@ -67,11 +67,35 @@ def login_user():
         print("fill out")
         redirect('/login')
 
-    with sqlite3.connect('user_info.db'):
-        cursor = conn.connect()
-        cursor.execute('SELECT password FROM users WHERE username=?', (username,))
-        result = cursor.fetchone()
+    with sqlite3.connect('user_info.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute('SELECT password FROM users WHERE username = ?', (username,))
+        users_pass = cursor.fetchone()
 
-        if result:
-            print(result)
-        conn.close()
+        if users_pass:
+            if users_pass[0] == password:
+                session['username'] = username
+            else:
+                print("wrong pass")
+            
+
+def create_user():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    confirm_pass = request.form.get('confirm_pass')
+
+    # check if fields filled out
+    if not username or not password or not confirm_pass:
+        print("fill out")
+
+    elif password != confirm_pass:
+        print("password does not match")
+
+    else:
+        try: 
+            with sqlite3.connect('user_info.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+                conn.commit()
+        except sqlite3.IntegrityError:
+                print("username already exists")

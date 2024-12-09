@@ -59,3 +59,8 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-05 10:59
   * Database issues: stemming from connecting files
 * Started API handling: GeoLocation
 * Refining CSS and HTML on Home Page, removed temporary links/redirects
+
+naomiL -- 2024-12-09 12:38
+* Added login + registration code (database, route)
+* It should probably work?
+* To do: Change print messages to flash

@@ -19,6 +19,16 @@
     <div id="background">
         <h1 id="title">Somni Bites</h1>
 
+        <div class="temp login">
+            {% if username %}
+            <br>
+                Hello, {{ username }}   
+            {% else %}
+                <a href="{{ url_for('login') }}">Log in</a><br>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
+
         <div id="profile">
             <p>
             </p>
