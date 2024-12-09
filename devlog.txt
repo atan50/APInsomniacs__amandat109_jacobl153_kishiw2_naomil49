@@ -64,3 +64,7 @@ naomiL -- 2024-12-09 12:38
 * Added login + registration code (database, route)
 * It should probably work?
 * To do: Change print messages to flash
+
+amandaT -- 2024-12-09 6:45
+* Added try, catch blocks to API.py
+* Should be no crashing should keys be missing or quotas exceeded
