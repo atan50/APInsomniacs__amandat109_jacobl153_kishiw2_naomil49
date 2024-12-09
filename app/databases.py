@@ -64,8 +64,8 @@ def login_user():
 
     # check if fields filled out
     if not username or not password:
-        print("fill out")
-        redirect('/login')
+        flash('Please fill out all fields.')
+        return redirect('/login')
 
     with sqlite3.connect('user_info.db') as conn:
         cursor = conn.cursor()
@@ -75,9 +75,11 @@ def login_user():
         if users_pass:
             if users_pass[0] == password:
                 session['username'] = username
-            else:
-                print("wrong pass")
-            
+                flash('Successfully logged in.')
+                return redirect('/')
+        else:
+            flash('Invalid username or password.')
+    return redirect('/login')
 
 def create_user():
     username = request.form.get('username')
@@ -86,16 +88,24 @@ def create_user():
 
     # check if fields filled out
     if not username or not password or not confirm_pass:
-        print("fill out")
+        flash('Please fill out all fields.')
 
     elif password != confirm_pass:
-        print("password does not match")
+        flash('Passwords do not match.')
 
     else:
-        try: 
+        try:
             with sqlite3.connect('user_info.db') as conn:
                 cursor = conn.cursor()
                 cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
                 conn.commit()
+                flash('User registered. Please log in.')
+                return redirect('/login')
         except sqlite3.IntegrityError:
-                print("username already exists")
+            flash('Username already exists.')
+    return redirect('/register')
+
+def logout_user():
+    flash('Successfully logged out.')
+    session.pop('username',)
+    return redirect('/')

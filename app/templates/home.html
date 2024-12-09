@@ -22,7 +22,8 @@
         <div class="temp login">
             {% if username %}
             <br>
-                Hello, {{ username }}   
+                Hello, {{ username }}
+                <a href="{{ url_for('logout') }}">Log out</a><br>
             {% else %}
                 <a href="{{ url_for('login') }}">Log in</a><br>
                 <a href="{{ url_for('register') }}">Register</a>
