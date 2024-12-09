@@ -72,3 +72,6 @@ amandaT -- 2024-12-09 06:45
 amandaT, jacobL, kishiW, naomiL -- 2024-12-09 10:59
 * Added logout route
 * Fixed redirecting
+* Worked on API handling
+* Finished styling for home (will apply to all pages)
+* Created html templates for profile, food, catalog
