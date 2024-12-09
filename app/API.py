@@ -15,9 +15,9 @@ def getBrews(): # Doesn't work now because forbidden from url???
         API = urllib.request.urlopen(request)
         data = json.loads(API.read()) # List of dictionaries. 50 brewery locations.
         names = [article['name'] for article in data]
-        longitude = [article['longitude'] for article in data]
-        latitude = [article['latitude'] for article in data]
-        print(names)
+        long_lat_list = [(article['longitude'], article['latitude']) for article in data]
+
+        print(long_lat_list)
     except Exception as e:
         print(e)
 
@@ -46,8 +46,12 @@ def getRecipes():
         url = f"https://api.spoonacular.com/recipes/random?apiKey={content}"
         response = requests.get(url)# Get Request of URL. API Key is required at end.
         data = response.json()# random recipe and all its info
+
+        instructions = data['recipes'][0]
+
         ingredients = data['recipes'][0]['extendedIngredients']
-        print(ingredients)
+        name_ingredients = [ingredient['original'] for ingredient in ingredients] # List of ingredients and amounts required for each.
+        print(instructions) 
     except Exception as e:
         print(e) 
-getBrews()
+getArticles()
