@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <title>{{ food }}</title>
+</head>
+
+<body>
+    <div id="background">
+        <h1 id="title"> {{ food }} </h1>
+            food facts<br>
+        </div>
+
+        <div id="recipe">
+            <p>
+                Recipes {{ food }} is used in:
+                    {% if stories %}
+                        <ul>
+                            {% for story in stories %}
+                                <li>
+                                    <div id = "favorites">
+                                    <h2>{{ story[1] }}</h2> <!-- Story Title -->
+
+                                    <p><strong>Description</strong> {{ story[2] }}</p> <!-- Last Content -->
+                                    <a id = view_recipe href="{{ url_for('recipe') }}"> View Recipe </a><br>
+                                    </div>                
+            </p>
+        </div>
+        </div>
+
+        <footer> You are currently logged in as {{ user }} </footer>
+
+</body>
+
+</html>
