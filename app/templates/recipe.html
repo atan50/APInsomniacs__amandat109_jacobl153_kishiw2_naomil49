@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/static/css/view.css">
-    <title>{{ storyname }}</title>
+    <title>{{ Recipe }}</title>
 </head>
 <body>
 
@@ -14,19 +14,24 @@
 
     <div id ="background">
 
-        <h1>{{ storyname }}</h1>
+        <h1>{{ Recipe }}</h1>
 
         <div id = "content">
             <p>{{ content }}</p>
         </div>
 
+    </form>
 
-        <div id ="red text">
-            <p> You've already edited this story!</p>
-        </div>
+        {% if comment %}
 
-        </div>
-    
+            {{ comment }}
+
+        {% else}
+
+        You have not left a comment. You can leave a comment here!
+        <textarea id="editing" name="content" rows="4" cols="50"></textarea>
+
+
     <footer> You are currently logged in as {{ user }} </footer>
 
 </body>
