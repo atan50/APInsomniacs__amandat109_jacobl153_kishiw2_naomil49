@@ -24,35 +24,40 @@ def init_db():
             password TEXT NOT NULL
         )
     ''')
-    # cursor.execute('''
-    #     CREATE TABLE IF NOT EXISTS recipes (
-    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
-    #         ingredients TEXT NOT NULL
-    #         content TEXT NOT NULL
-    #         name TEXT NOT NULL
-    #     )
-    # ''')
-    # cursor.execute('''
-    #     CREATE TABLE IF NOT EXISTS food (
-    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
-    #         name TEXT NOT NULL
-    #         image BLOB
-    #         recipes REFERENCES recipes(name)
-    #     )
-    # ''')
-    # cursor.execute('''
-    #     CREATE TABLE IF NOT EXISTS news (
-    #         id INTEGER PRIMARY KEY AUTOINCREMENT,
-    #         title TEXT UNIQUE NOT NULL
-    #         content TEXT NOT NULL
-    #     )
-    # ''')
-    # cursor.execute('''
-    #     CREATE TABLE IF NOT EXISTS favorite_recipes (
-    #         user INTEGER PRIMARY KEY AUTOINCREMENT,
-    #         recipes REFERENCES recipes(id)
-    #     )
-    # ''')
+    conn.commit()
+    conn.close()
+
+    conn = sqlite3.connect('api_info.db')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS recipes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            ingredients TEXT NOT NULL
+            content TEXT NOT NULL
+            name TEXT NOT NULL
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS food (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL
+            image BLOB
+            recipes REFERENCES recipes(name)
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS news (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT UNIQUE NOT NULL
+            content TEXT NOT NULL
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS favorite_recipes (
+            user INTEGER PRIMARY KEY AUTOINCREMENT,
+            recipes REFERENCES recipes(id)
+        )
+    ''')
     conn.commit()
     conn.close()
 
