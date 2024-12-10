@@ -5,9 +5,8 @@
 # 2024-12-04
 # Time spent: ___
 
+import sqlite3, os
 from flask import Flask, request, render_template, redirect, url_for, flash, session
-import sqlite3
-import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)

@@ -1,10 +1,6 @@
 # import requests
-import urllib.request
-from urllib.request import Request
-from urllib.request import urlopen
-import json
-import random
-import requests
+import json, random, requests, urllib.request
+from urllib.request import Request, urlopen
 
 
 def getBrews(): # Doesn't work now because forbidden from url???
@@ -51,7 +47,7 @@ def getRecipes():
 
         ingredients = data['recipes'][0]['extendedIngredients']
         name_ingredients = [ingredient['original'] for ingredient in ingredients] # List of ingredients and amounts required for each.
-        print(instructions) 
+        print(instructions)
     except Exception as e:
-        print(e) 
+        print(e)
 getArticles()
