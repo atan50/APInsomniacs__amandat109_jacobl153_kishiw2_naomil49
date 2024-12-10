@@ -60,6 +60,10 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-06 10:59
 * Started API handling: GeoLocation
 * Refining CSS and HTML on Home Page, removed temporary links/redirects
 
+jacobL -- 2024-12-06 21:35
+* Wrote foundational API handling functions
+* Currently prints information to terminal
+
 naomiL -- 2024-12-09 00:38
 * Added login + registration code (database, route)
 * It should probably work?
@@ -72,6 +76,18 @@ amandaT -- 2024-12-09 06:45
 amandaT, jacobL, kishiW, naomiL -- 2024-12-09 10:59
 * Added logout route
 * Fixed redirecting
+  * Resolved unnecessary routing
 * Worked on API handling
+  * Calling from NYT articles API
 * Finished styling for home (will apply to all pages)
 * Created html templates for profile, food, catalog
+
+jacobL -- 2024-12-09 18:30
+* Python file calls both longitude and latitude from Brewery API
+* Started calling ingredients and instructions from Spoonacular
+  * Encountered call time issues
+
+amandaT -- 2024-12-09 19:39
+* Experimented with API calling
+* Determined no call time issues with Spoonacular API handling
+  * Surmised to be personal device issues
