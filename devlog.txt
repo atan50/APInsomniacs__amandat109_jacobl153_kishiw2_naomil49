@@ -91,3 +91,9 @@ amandaT -- 2024-12-09 19:39
 * Experimented with API calling
 * Determined no call time issues with Spoonacular API handling
   * Surmised to be personal device issues
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-10 10:59
+* Identified issues with design document, ambiguity with site map
+* Separeted database files
+* Created HTML for recipes page
+* Refining API calls for recipes
