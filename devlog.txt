@@ -101,3 +101,12 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-10 10:59
 
 jacobL -- 2024-12-10 18:52
 * Created recipes handling in databases
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-11 10:59
+* To do: fix design doc
+  * rename grocery -> brewery
+  * route should be home-> brewery, not login->brewery
+* Tested routing/flash for breweries
+* Articles databases
+* Test functions for database status
+* Re-established project timeline
