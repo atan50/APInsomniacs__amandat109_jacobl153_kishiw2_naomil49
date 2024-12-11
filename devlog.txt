@@ -98,3 +98,6 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-10 10:59
 * Created HTML for recipes page
 * Refining API calls for recipes
 * Adjusted to import conventions
+
+jacobL -- 2024-12-10 18:52
+* Created recipes handling in databases
