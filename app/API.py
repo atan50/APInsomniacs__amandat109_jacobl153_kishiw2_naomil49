@@ -42,12 +42,19 @@ def getRecipes():
         url = f"https://api.spoonacular.com/recipes/random?apiKey={content}"
         response = requests.get(url)# Get Request of URL. API Key is required at end.
         data = response.json()# random recipe and all its info
-
-        instructions = data['recipes'][0]
+        
+        title = data['recipes'][0]['title']   	 
+        
+        instructions = data['recipes'][0]['instructions']
 
         ingredients = data['recipes'][0]['extendedIngredients']
         name_ingredients = [ingredient['original'] for ingredient in ingredients] # List of ingredients and amounts required for each.
-        print(instructions)
+        list_ingredients = ""
+        for ingredient in name_ingredients:
+            list_ingredients += ingredient + " + "
+        list_ingredients = list_ingredients[:-2] + "."
+        return([title, list_ingredients, instructions])
     except Exception as e:
         print(e)
-getArticles()
+
+getRecipes()

@@ -7,6 +7,7 @@
 
 import sqlite3, os
 from flask import Flask, request, render_template, redirect, url_for, flash, session
+import API
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -31,23 +32,23 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS recipes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            ingredients TEXT NOT NULL
-            content TEXT NOT NULL
+            ingredients TEXT NOT NULL,
+            content TEXT NOT NULL,
             name TEXT NOT NULL
         )
     ''')
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS food (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
-            image BLOB
+            name TEXT NOT NULL,
+            image BLOB,
             recipes REFERENCES recipes(name)
         )
     ''')
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS news (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT UNIQUE NOT NULL
+            title TEXT UNIQUE NOT NULL,
             content TEXT NOT NULL
         )
     ''')
@@ -60,7 +61,24 @@ def init_db():
     conn.commit()
     conn.close()
 
-# init_db()
+
+def setup_recipe_db(): 
+    try:
+        with sqlite3.connect('api_info.db') as conn:
+            total_recipes = 3 # total recipes added to database. Don't make too high because lack of quotas.
+            while(total_recipes > 0):
+                info = API.getRecipes()
+                ingredients = info[1]
+                content = info[2]
+                name = info[0]
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO recipes (ingredients, content, name) VALUES (?, ?, ?)', (ingredients, content, name))
+                total_recipes -= 1
+            cursor.execute('SELECT name FROM recipes')
+            conn.commit()
+            print(cursor.fetchall())
+    except sqlite3.IntegrityError:
+        flash('Database Error')
 
 def login_user():
     username = request.form.get('username')
@@ -113,3 +131,5 @@ def logout_user():
     flash('Successfully logged out.')
     session.pop('username',)
     return redirect('/')
+init_db()
+setup_recipe_db()
