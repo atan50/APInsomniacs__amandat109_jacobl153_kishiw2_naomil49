@@ -132,6 +132,7 @@ def logout_user():
     session.pop('username',)
     return redirect('/')
 
+<<<<<<< HEAD
 # checking contents of tables
 # def print_table():
 #     try:
@@ -142,5 +143,7 @@ def logout_user():
 #         print('Database Error')
 
 
+=======
+>>>>>>> refs/remotes/origin/main
 init_db()
 setup_recipe_db()
