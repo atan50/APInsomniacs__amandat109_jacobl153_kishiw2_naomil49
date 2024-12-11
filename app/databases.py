@@ -62,7 +62,7 @@ def init_db():
     conn.close()
 
 
-def setup_recipe_db(): 
+def setup_recipe_db():
     try:
         with sqlite3.connect('api_info.db') as conn:
             total_recipes = 3 # total recipes added to database. Don't make too high because lack of quotas.
@@ -131,5 +131,16 @@ def logout_user():
     flash('Successfully logged out.')
     session.pop('username',)
     return redirect('/')
+
+# checking contents of tables
+# def print_table():
+#     try:
+#         with sqlite3.connect('api_info.db') as conn:
+#             cursor.execute("SELECT * FROM recipes")
+#             print(cur.fetchall())
+#     except sqlite3.IntegrityError:
+#         print('Database Error')
+
+
 init_db()
 setup_recipe_db()
