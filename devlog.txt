@@ -114,3 +114,9 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-11 10:59
 naomiL -- 2024-12-12 02:39
 * Get information for displaying recipes + routing for catalog
 * Ordered lists are weird
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-12 10:59
+* Encountered errors for database setup
+* Created routing etc. for News
+* Styling for homepage, etc.
+* Changed README
