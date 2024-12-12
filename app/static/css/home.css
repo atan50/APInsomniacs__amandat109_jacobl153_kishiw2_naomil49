@@ -12,14 +12,14 @@ body {
 }
 
 #background {
+    position: sticky;
 	background-color:#e2daf5;
-	text-align: center;
 	margin: 0 auto;
     margin-top: 2%;
 	padding: 2%;
 	padding-bottom: 2%;
 	width: 90%;
-    height: 20%;
+    height: 10%;
 	border-radius: 50px;
     box-shadow: 8px 8px 16px rgba(201, 201, 201, 0.8);
 }
@@ -29,13 +29,23 @@ body {
   background-size: cover;
   margin: 1%;
   color: transparent;
-  -moz-background-clip: text;
   -webkit-background-clip: text;
   font-family: "Cookie", cursive;
   font-weight: 600;
   font-style: normal;
   font-size: 100px;
-  text-align: center;
+  display: inline-block;
+  right: 50%;
+  width: 50%;
+  position: sticky;
+}
+
+#buttons {
+    display: inline-block;
+    position: sticky;
+    width: 40%;
+    left: 80%;
+    bottom: 80%;
 }
 
 #login {
@@ -50,8 +60,8 @@ body {
 	width: 10%;
 	cursor: pointer;
     position: relative;
-    top: 40%;
-    right: 20%;
+    bottom: 80%;
+    right: 30%;
 }
 #login:hover {
   transition: 0.3s;
@@ -72,10 +82,44 @@ body {
 	width: 10%;
 	cursor: pointer;
     position: relative;
-    top: 0%;
-    left: 20%;
+    bottom: 50%;
+    left: 30%;
 }
 #register:hover {
+  transition: 0.3s;
+	background-color: rgb(189, 172, 172);
+	color: white;
+    scale: 105%;
+}
+
+#brew {
+	background-color:#e2daf5;
+	margin: 0 auto;
+    margin-top: 2%;
+	padding: 2%;
+	padding-bottom: 2%;
+	width: 90%;
+    height: 10%;
+	border-radius: 50px;
+    box-shadow: 8px 8px 16px rgba(201, 201, 201, 0.8);
+}
+
+#brewery {
+    text-decoration: none;
+    border: none;
+    background-color: #ae95ed;
+    border-radius: 6px;
+	font-style: "Inter", sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	padding: 10px;
+	width: 10%;
+	cursor: pointer;
+    position: relative;
+    top: 80%;
+    left: 60%;
+}
+#brewery:hover {
   transition: 0.3s;
 	background-color: rgb(189, 172, 172);
 	color: white;

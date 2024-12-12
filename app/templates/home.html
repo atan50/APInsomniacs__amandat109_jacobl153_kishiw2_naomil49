@@ -19,8 +19,7 @@
     <div id="background">
         <h1 id="title">Somni Bites</h1>
 
-        <div class="temp login">
-          <a href="{{ url_for('brewery') }}"> Brewery</a><br>
+        <div id="buttons">
             {% if username %}
             <br>
                 Hello, {{ username }}
@@ -31,13 +30,13 @@
             {% endif %}
         </div>
 
-        <div id="profile">
-            <p>
-            </p>
+    </div>
+
+        <div id="brew" class="fa fa-3x animation fade-in-up" data-mbd-animation-init= "" data-mdb-animation-start="onScroll" data-mdb-animation="fade-in-up" data-mbd-animation-initialized="true" style="visibility: visible; animation-duration: 500ms">
+            <p> Visit the brewery! </p>
+            <a id = brewery href="{{ url_for('brewery') }}"> Brewery</a><br>
         </div>
 
-
-    </div>
 </body>
 
 </html>
