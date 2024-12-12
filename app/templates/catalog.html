@@ -10,7 +10,7 @@
         <form action="/">
             <input type="submit" name="return" value="Home">
         </form>
-    
+
     {% if stories %}
         <ul>
             {% for story in stories %}
@@ -22,10 +22,10 @@
                     <p><strong>Description</strong> {{ story[2] }}</p> <!-- Last Content -->
 
                     <div id = "access">
-                        <form action="/recipe/"">
+                        <form action="/recipe/">
                         <input type="submit" id="story_button" name="recipe" value="View Recipe">
-                    </div>   
-               </div>                
+                    </div>
+               </div>
                 </form>
                 </li>
             {% endfor %}
@@ -33,7 +33,7 @@
     {% else %}
         <p>You have not contributed to any stories yet.</p>
     {% endif %}
-    
+
     <!-- List of recipes -->
     {% if recipes %}
         <ul>

@@ -183,3 +183,10 @@ def get_recipes():
         result = cursor.execute("SELECT ingredients, content, name FROM recipes").fetchall()
         # print("get_reciptes():\n",result)
         return result
+
+def get_news():
+    with sqlite3.connect('api_info.db') as conn:
+        cursor = conn.cursor()
+        result = cursor.execute("SELECT title, content, link FROM news").fetchall()
+        # print("get_news():\n",result)
+        return result

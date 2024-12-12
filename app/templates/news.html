@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog</title>
+    <link rel="stylesheet" href="static/css/existing.css">
+</head>
+<body>
+    <h1>News</h1>
+
+    <!-- List of News -->
+    {% if news %}
+        <ul>
+            {% for article in news %}
+                <li>
+                    {{ article[0] }}<br> <!-- Title -->
+                    {{ article[1] }} <!-- Ingredients -->
+                    <a href = "{{ article[2] }}"> See more </a> <!-- Content-->
+                    <!-- Insert picture of food here; may be annoying if we have to find the pictures ourselves.  -->
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+</body>
+</html>
