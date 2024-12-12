@@ -34,7 +34,8 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             ingredients TEXT NOT NULL,
             content TEXT NOT NULL,
-            name TEXT NOT NULL
+            name TEXT NOT NULL,
+            image TEXT NOT NULL
         )
     ''')
     cursor.execute('''
@@ -102,7 +103,8 @@ def setup_recipes_table():
                     ingredients = info[1]
                     content = info[2]
                     name = info[0]
-                    cursor.execute('INSERT INTO recipes (ingredients, content, name) VALUES (?, ?, ?)', (ingredients, content, name))
+                    image = info[3]
+                    cursor.execute('INSERT INTO recipes (ingredients, content, name, image) VALUES (?, ?, ?, ?)', (ingredients, content, name, image))
                     total_recipes -= 1
                 conn.commit()
     except sqlite3.IntegrityError:

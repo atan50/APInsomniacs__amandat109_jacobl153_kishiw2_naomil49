@@ -54,12 +54,14 @@ def getRecipes():
         instructions = data['recipes'][0]['instructions']
 
         ingredients = data['recipes'][0]['extendedIngredients']
+
+        image = data['recipes'][0]['image']
         name_ingredients = [ingredient['original'] for ingredient in ingredients] # List of ingredients and amounts required for each.
         list_ingredients = ""
         for ingredient in name_ingredients:
             list_ingredients += ingredient + " + "
         list_ingredients = list_ingredients[:-2] + "."
-        return([title, list_ingredients, instructions])
+        return([title, list_ingredients, instructions, image])
     except Exception as e:
         print(e)
 

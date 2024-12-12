@@ -38,13 +38,13 @@ OR
 
   3. Ensure your virtual environment is activated
 
-  4. Access the repository by typing ```$ cd coolbeans__evanc107_amandat109_dannym2789_jiayingz16```
+  4. Access the repository by typing ```$ cd APInsomniacs__amandat109_jacobl153_kishiw2_naomil49/app/```
 
   5. Type ```$ pip install -r requirements.txt``` to install the required modules
 
  - If terminal returns ```zsh: command not found: pip```, type ```$ pip3 install -r requirements.txt``` because ```$ pip``` is for python2.
 
-  6. Type ```$ python3 app/app.py``` to run the application
+  6. Type ```$ python3 app.py``` to run the application
 
   7. Copy / type "http://127.0.0.1:5000" or "http://localhost" onto a browser to view the website
 
