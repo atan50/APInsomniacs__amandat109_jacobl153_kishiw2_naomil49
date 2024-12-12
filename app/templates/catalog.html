@@ -41,12 +41,13 @@
                 <li>
                     {{ recipe[2] }}<br> <!-- Title -->
                     <i>Ingredients:</i><br> {{ recipe[0] }}<br> <!-- Ingredients -->
-                    <i>Steps:</i><br> {{ recipe[1] }} <!-- Content-->
+                    <i>Steps:</i><br> {{ recipe[1] | safe }} <!-- Content-->
                     <!-- Insert picture of food here; may be annoying if we have to find the pictures ourselves.  -->
                 </li>
                 <br>
             {% endfor %}
         </ul>
+
     {% endif %}
 
 </body>

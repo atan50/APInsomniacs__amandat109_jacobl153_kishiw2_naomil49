@@ -110,3 +110,7 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-11 10:59
 * Articles databases
 * Test functions for database status
 * Re-established project timeline
+
+naomiL -- 2024-12-12 
+* Get information for displaying recipes + routing for catalog
+* Ordered lists are weird
