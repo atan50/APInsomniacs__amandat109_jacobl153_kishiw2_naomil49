@@ -12,58 +12,6 @@ import API
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
-def init_db():
-    """initialize db if none exists"""
-    conn = sqlite3.connect('user_info.db')
-    cursor = conn.cursor()
-    # User table
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-    conn = sqlite3.connect('api_info.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS recipes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            ingredients TEXT NOT NULL,
-            content TEXT NOT NULL,
-            name TEXT NOT NULL,
-            image TEXT NOT NULL
-        )
-    ''')
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS brewery (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            longitude REAL NOT NULL,
-            latitude REAL NOT NULL
-        )
-    ''')
-    cursor.execute('''
-    	CREATE TABLE IF NOT EXISTS news (
-        	id INTEGER PRIMARY KEY AUTOINCREMENT,
-        	title TEXT UNIQUE NOT NULL,
-        	content TEXT NOT NULL,
-        	link TEXT NOT NULL
-    	)
-	''')
-
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS favorite_recipes (
-            user INTEGER PRIMARY KEY AUTOINCREMENT,
-            recipes REFERENCES recipes(id)
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
 def setup_brewery_table(): # Only run once because API.getBrews() contains all articles.
     try:
             with sqlite3.connect('api_info.db') as conn:
@@ -109,6 +57,63 @@ def setup_recipes_table():
                 conn.commit()
     except sqlite3.IntegrityError:
         flash('Database Error')
+
+
+def init_db():
+    """initialize db if none exists"""
+    if not os.path.exists('user_info.db'):
+        conn = sqlite3.connect('user_info.db')
+        cursor = conn.cursor()
+        # User table
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL
+            )
+        ''')
+        conn.commit()
+        conn.close()
+    if not os.path.exists('api_info.db'):  
+        conn = sqlite3.connect('api_info.db')
+        cursor = conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS recipes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                ingredients TEXT NOT NULL,
+                content TEXT NOT NULL,
+                name TEXT NOT NULL,
+                image TEXT NOT NULL
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS brewery (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                longitude REAL NOT NULL,
+                latitude REAL NOT NULL
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS news (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT UNIQUE NOT NULL,
+                content TEXT NOT NULL,
+                link TEXT NOT NULL
+            )
+        ''')
+
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS favorite_recipes (
+                user INTEGER PRIMARY KEY AUTOINCREMENT,
+                recipes REFERENCES recipes(id)
+            )
+        ''')
+        conn.commit()
+        setup_brewery_table()
+        setup_articles_table()
+        setup_recipes_table()
+        conn.close()
 
 def login_user():
     username = request.form.get('username')
@@ -182,13 +187,13 @@ def print_table():
 def get_recipes():
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
-        result = cursor.execute("SELECT ingredients, content, name FROM recipes").fetchall()
+        result = cursor.execute("SELECT * FROM recipes").fetchall()
         # print("get_reciptes():\n",result)
         return result
 
 def get_news():
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
-        result = cursor.execute("SELECT title, content, link FROM news").fetchall()
+        result = cursor.execute("SELECT * FROM news").fetchall()
         # print("get_news():\n",result)
         return result
