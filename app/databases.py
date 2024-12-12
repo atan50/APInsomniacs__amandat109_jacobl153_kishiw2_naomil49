@@ -38,11 +38,11 @@ def init_db():
         )
     ''')
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS food (
+        CREATE TABLE IF NOT EXISTS brewery (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
-            image BLOB,
-            recipes REFERENCES recipes(name)
+            longitude REAL NOT NULL,
+            latitude REAL NOT NULL
         )
     ''')
     cursor.execute('''
@@ -63,35 +63,48 @@ def init_db():
     conn.commit()
     conn.close()
 
-def setup_articles_db(): # Only run once because API.getArticles() contains all articles.
+def setup_brewery_table(): # Only run once because API.getBrews() contains all articles.
+    try:
+            with sqlite3.connect('api_info.db') as conn:
+                all_info = API.getBrews()
+                cursor = conn.cursor()
+                for info in all_info:
+                    name = info[0]
+                    long = info[1]
+                    lat = info[2]
+                    if long is not None and lat is not None:
+                        cursor.execute('INSERT INTO brewery (name, longitude, latitude) VALUES (?, ?, ?)', (name, long, lat))
+                conn.commit()
+    except sqlite3.IntegrityError:
+        flash('Database Error')
+
+def setup_articles_table(): # Only run once because API.getArticles() contains all articles.
 	try:
-    		with sqlite3.connect('api_info.db') as conn:
-        	all_info = API.getArticles()
-        	for info in all_info:
-            	title = info[2]
-            	content = info[1]
-            	link = info[0]
-            	cursor = conn.cursor()
-            	cursor.execute('INSERT INTO news (title, content, link) VALUES (?, ?, ?)', (title, content, link))
-        		conn.commit()
+            with sqlite3.connect('api_info.db') as conn:
+                all_info = API.getArticles()
+                cursor = conn.cursor()
+                for info in all_info:
+                    title = info[2]
+                    content = info[1]
+                    link = info[0]
+                    cursor.execute('INSERT INTO news (title, content, link) VALUES (?, ?, ?)', (title, content, link))
+                conn.commit()
 	except sqlite3.IntegrityError:
     		flash('Database Error')
 
-def setup_recipe_db():
+def setup_recipes_table():
     try:
-        with sqlite3.connect('api_info.db') as conn:
-            total_recipes = 12 # total recipes added to database. Don't make too high because lack of quotas.
-            while(total_recipes > 0):
-                info = API.getRecipes()
-                ingredients = info[1]
-                content = info[2]
-                name = info[0]
+            with sqlite3.connect('api_info.db') as conn:
+                total_recipes = 12 # total recipes added to database. Don't make too high because lack of quotas.
                 cursor = conn.cursor()
-                cursor.execute('INSERT INTO recipes (ingredients, content, name) VALUES (?, ?, ?)', (ingredients, content, name))
-                total_recipes -= 1
-            cursor.execute('SELECT name FROM recipes')
-            conn.commit()
-            print(cursor.fetchall())
+                while(total_recipes > 0):
+                    info = API.getRecipes()
+                    ingredients = info[1]
+                    content = info[2]
+                    name = info[0]
+                    cursor.execute('INSERT INTO recipes (ingredients, content, name) VALUES (?, ?, ?)', (ingredients, content, name))
+                    total_recipes -= 1
+                conn.commit()
     except sqlite3.IntegrityError:
         flash('Database Error')
 
@@ -148,15 +161,18 @@ def logout_user():
     return redirect('/')
 
 # checking contents of tables
-# def print_table():
-#     try:
-#         with sqlite3.connect('api_info.db') as conn:
-#             cursor.execute("SELECT * FROM recipes")
-#             print(cur.fetchall())
-#     except sqlite3.IntegrityError:
-#         print('Database Error')
+def print_table():
+    try:
+        with sqlite3.connect('api_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM recipes")
+            print(cursor.fetchall())
+            cursor.execute("SELECT * FROM brewery")
+            print(cursor.fetchall())
+            cursor.execute("SELECT * FROM news")
+            print(cursor.fetchall())
+    except sqlite3.IntegrityError:
+        print('Database Error')
 
 
-init_db()
-setup_recipe_db()
-setup_articles_db()
+print_table()

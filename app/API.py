@@ -11,9 +11,12 @@ def getBrews(): # Doesn't work now because forbidden from url???
         API = urllib.request.urlopen(request)
         data = json.loads(API.read()) # List of dictionaries. 50 brewery locations.
         names = [article['name'] for article in data]
-        long_lat_list = [(article['longitude'], article['latitude']) for article in data]
-
-        print(long_lat_list)
+        longs = [article['longitude'] for article in data]
+        lats = [article['latitude'] for article in data]
+        info_list =[]
+        for (name, long, lat) in zip(names, longs, lats):
+            info_list.append([name, long, lat])
+        return(info_list)
     except Exception as e:
         print(e)
 
@@ -28,9 +31,12 @@ def getArticles():
         data = json.loads(API.read())
         articles = data['response']['docs']
         urls = [article['web_url'] for article in articles] # url's of articles in past month
-        lead_par = [article['lead_paragraph'] for article in articles]
-        headline = [article['headline']['print_headline'] for article in articles]
-        print(headline)
+        lead_pars = [article['lead_paragraph'] for article in articles]
+        headlines = [article['headline']['print_headline'] for article in articles]
+        info_list =[]
+        for (url, lead_par, headline) in zip(urls, lead_pars, headlines):
+            info_list.append([url, lead_par, headline])
+        return (info_list)
     except Exception as e:
         print(e)
 
@@ -57,4 +63,4 @@ def getRecipes():
     except Exception as e:
         print(e)
 
-getRecipes()
+getBrews()
