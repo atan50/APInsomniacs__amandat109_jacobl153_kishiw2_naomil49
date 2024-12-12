@@ -33,6 +33,21 @@
     {% else %}
         <p>You have not contributed to any stories yet.</p>
     {% endif %}
+    
+    <!-- List of recipes -->
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    {{ recipe[2] }}<br> <!-- Title -->
+                    <i>Ingredients:</i><br> {{ recipe[0] }}<br> <!-- Ingredients -->
+                    <i>Steps:</i><br> {{ recipe[1] }} <!-- Content-->
+                    <!-- Insert picture of food here; may be annoying if we have to find the pictures ourselves.  -->
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 </body>
 </html>

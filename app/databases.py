@@ -166,13 +166,20 @@ def print_table():
         with sqlite3.connect('api_info.db') as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM recipes")
-            print(cursor.fetchall())
+            print("recipes:\n", cursor.fetchall(), "\n")
             cursor.execute("SELECT * FROM brewery")
-            print(cursor.fetchall())
+            print("brewery:\n", cursor.fetchall(), "\n")
             cursor.execute("SELECT * FROM news")
-            print(cursor.fetchall())
+            print("news:\n", cursor.fetchall(),"\n")
     except sqlite3.IntegrityError:
         print('Database Error')
 
+# print_table()
 
-print_table()
+# List of recipes from recipes table
+def get_recipes():
+    with sqlite3.connect('api_info.db') as conn:
+        cursor = conn.cursor()
+        result = cursor.execute("SELECT ingredients, content, name FROM recipes").fetchall()
+        # print("get_reciptes():\n",result)
+        return result

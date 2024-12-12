@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user
+from databases import login_user, init_db, create_user, logout_user, get_recipes
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -53,6 +53,11 @@ def logout():
 # Catalog page
 
 # Recipe page
+@app.route('/recipes')
+def recipes():
+    recipes = get_recipes()
+    return render_template('catalog.html', recipes = recipes)
+
 
 # Add note
 
