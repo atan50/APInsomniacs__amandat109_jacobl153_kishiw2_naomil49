@@ -46,12 +46,14 @@ def init_db():
         )
     ''')
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS news (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT UNIQUE NOT NULL,
-            content TEXT NOT NULL
-        )
-    ''')
+    	CREATE TABLE IF NOT EXISTS news (
+        	id INTEGER PRIMARY KEY AUTOINCREMENT,
+        	title TEXT UNIQUE NOT NULL,
+        	content TEXT NOT NULL,
+        	link TEXT NOT NULL
+    	)
+	''')
+
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS favorite_recipes (
             user INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,11 +63,24 @@ def init_db():
     conn.commit()
     conn.close()
 
+def setup_articles_db(): # Only run once because API.getArticles() contains all articles.
+	try:
+    		with sqlite3.connect('api_info.db') as conn:
+        	all_info = API.getArticles()
+        	for info in all_info:
+            	title = info[2]
+            	content = info[1]
+            	link = info[0]
+            	cursor = conn.cursor()
+            	cursor.execute('INSERT INTO news (title, content, link) VALUES (?, ?, ?)', (title, content, link))
+        		conn.commit()
+	except sqlite3.IntegrityError:
+    		flash('Database Error')
 
 def setup_recipe_db():
     try:
         with sqlite3.connect('api_info.db') as conn:
-            total_recipes = 3 # total recipes added to database. Don't make too high because lack of quotas.
+            total_recipes = 12 # total recipes added to database. Don't make too high because lack of quotas.
             while(total_recipes > 0):
                 info = API.getRecipes()
                 ingredients = info[1]
@@ -132,7 +147,6 @@ def logout_user():
     session.pop('username',)
     return redirect('/')
 
-<<<<<<< HEAD
 # checking contents of tables
 # def print_table():
 #     try:
@@ -143,7 +157,6 @@ def logout_user():
 #         print('Database Error')
 
 
-=======
->>>>>>> refs/remotes/origin/main
 init_db()
 setup_recipe_db()
+setup_articles_db()
