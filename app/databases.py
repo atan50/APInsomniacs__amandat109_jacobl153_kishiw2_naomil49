@@ -182,7 +182,7 @@ def print_table():
 
 # print_table()
 
-# List of recipes from recipes table
+# Accessing databases
 def get_recipes():
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
@@ -205,10 +205,9 @@ def get_recipe_content(title):
             # flash("No recipe found")
             print("no recipe")
             return redirect(url_for('home'))
-        print("get_recipe_content():\n",result)
+        # print("get_recipe_content():\n",result)
         return result
 
-# Brewery get methods -- general, latitude-longitude specific
 def get_breweries():
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
@@ -217,5 +216,19 @@ def get_breweries():
         #     # flash("No recipe found")
         #     print("no recipe")
         #     return redirect(url_for('home'))
-        print("get_brewery_content():\n",result)
+        # print("get_brewery_content():\n",result)
         return result
+
+def get_user_favorites(user):
+    with sqlite3.connect('user_info.db') as conn:
+        cursor = conn.cursor()
+        result_user = cursor.execute("SELECT * FROM users WHERE username = ?", (user,)).fetchone()
+        if not result_user:
+            # flash("No recipe found")
+            print("No such user")
+            return redirect(url_for('home'))
+
+        # Function not finished: add access favorites column, which does not exist yet
+        
+        # print("get_user_favorites():\n",result)
+        return 1

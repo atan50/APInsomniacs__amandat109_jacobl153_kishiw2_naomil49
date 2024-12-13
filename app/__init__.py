@@ -24,21 +24,19 @@ def home():
         return render_template('home.html')
     return render_template('home.html', username = session['username'])
 
-# Register new users
+# User routing
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         return create_user()
     return render_template('register.html')
 
-# Login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method=='POST':
         return login_user()
     return render_template('login.html')
 
-# Logout route
 @app.route('/logout')
 def logout():
     if 'username' in session:
@@ -46,7 +44,17 @@ def logout():
     return redirect('/')
     # return render_template('logout.html')
 
-# Profile route
+# User-specific routing
+@app.route('/profile')
+def profile():
+    if 'username' in session:
+        info = get_favorites(user)
+        return render_template('profile.html', username = session['username'])
+    return redirect('/')
+
+# Add comment
+
+# General routing
 
 # News page
 @app.route('/news')
@@ -60,10 +68,10 @@ def catalog():
     recipes = get_recipes()
     return render_template('catalog.html', recipes = recipes)
 
-# Recipes page; title is the recipe's title
-@app.route('/catalog/<title>')
-def view(title):
-    info = get_recipe_content(title)
+# Recipes page
+@app.route('/catalog/<name>')
+def view(name):
+    info = get_recipe_content(name)
     # print("info: ",info)
     id = info[0]
     ingredients = info[1]
@@ -71,10 +79,6 @@ def view(title):
     name = info[3]
     image = info[4]
     return render_template('recipe.html', ingredients = ingredients, steps = steps, name = name, image=image)
-
-# Add note
-
-# Food page
 
 # Brewery route
 @app.route('/brewery', methods = ['GET', 'POST'])

@@ -2,9 +2,18 @@
 <html>
 <head>
     <link rel="stylesheet" href="/static/css/view.css">
-    <title>{{ Recipe }}</title>
+    <title>{{ name }}</title>
 </head>
 <body>
+
+<!-- 
+    name: {{ name }}<br>
+    ingredients: {{ ingredients }}
+    steps: {{ steps | safe }}
+    image: {{ image }}
+    comment: user-specific comments
+
+-->
 
 <nav> 
     <form action="/">
@@ -14,7 +23,7 @@
 
     <div id ="background">
 
-        <h1>{{ Recipe }}</h1>
+        <h1>{{ name }}</h1>
 
         <div id = "content">
             <p>{{ content }}</p>
@@ -33,13 +42,8 @@
 
         {% endif %}
 
-    <footer> You are currently logged in as {{ user }} </footer>
+    <footer> You are currently logged in as {{ session['username'] }} </footer>
 
-    <!-- <div>
-        name: {{ name }}<br>
-        ingredients: {{ ingredients }}
-        steps: {{ steps | safe }}
-        image: {{ image }}
-    </div> -->
+    
 </body>
 </html>

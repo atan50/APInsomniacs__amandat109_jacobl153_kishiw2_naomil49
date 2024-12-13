@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 
+<!-- 
+username: user in session
+recipes: list of favorited recipes
+-->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -17,33 +22,41 @@
 
 <body>
     <div id="background">
+
         {% if username %}
-        <h1 id="title"> {{username}}'s Profile </h1>
-        <div class="temp login">
-            <br>
+            <h1 id="title"> {{username}}'s Profile </h1>
+
+            <div class="temp login">
+                <br>
                 Favorited Blogs:
-                    {% if stories %}
-                        <ul>
-                            {% for story in stories %}
-                                <li>
-                                    <div id = "favorites">
-                                    <h2>{{ story[1] }}</h2> <!-- Story Title -->
+                {% if stories %}
+                    <ul>
+                    {% for story in stories %}
+                        <li>
+                            <div id = "favorites">
+                                <h2>{{ story[1] }}</h2> <!-- Story Title -->
 
-                                    <p><strong>Description</strong> {{ story[2] }}</p> <!-- Last Content -->
-                                    <a id = view_recipe href="{{ url_for('recipe') }}"> View Recipe </a><br>
-                                    </div>                
-             <a id = login href="{{ url_for('login') }}">Log Out?</a><br>   
-            {% else %}
-                You are not logged in! <br>
-                <a id = register href="{{ url_for('register') }}">Register</a> <br>
-                <a id = login href="{{ url_for('login') }}">Log in</a><br>
-            {% endif %}
-        </div>
+                                <p><strong>Description</strong> {{ story[2] }}</p> <!-- Last Content -->
+                                <a id = view_recipe href="{{ url_for('recipe') }}"> View Recipe </a><br>
+                            </div> 
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <a id = login href="{{ url_for('login') }}">Log Out?</a><br>  
+                {% endif %} 
+            </div>
 
-        <div id="profile">
-            <p>
-            </p>
-        </div>
+        {% else %}
+            You are not logged in! <br>
+            <a id = register href="{{ url_for('register') }}">Register</a> <br>
+            <a id = login href="{{ url_for('login') }}">Log in</a><br>
+        {% endif %}
+    </div>
+
+    <div id="profile">
+        <p>
+        </p>
+    </div>
 
 
     </div>
