@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Catalog</title>
-    <link rel="stylesheet" href="static/css/existing.css">
+    <link rel="stylesheet" href="static/css/catalog.css">
 </head>
 <body>
     <h1>Catalog</h1>
@@ -11,38 +11,13 @@
             <input type="submit" name="return" value="Home">
         </form>
 
-    {% if stories %}
-        <ul>
-            {% for story in stories %}
-                <li>
-
-                <div id = "history">
-                    <h2>{{ story[1] }}</h2> <!-- Story Title -->
-
-                    <p><strong>Description</strong> {{ story[2] }}</p> <!-- Last Content -->
-
-                    <div id = "access">
-                        <form action="/recipe/">
-                        <input type="submit" id="story_button" name="recipe" value="View Recipe">
-                    </div>
-               </div>
-                </form>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>You have not contributed to any stories yet.</p>
-    {% endif %}
-
     <!-- List of recipes -->
     {% if recipes %}
         <ul>
             {% for recipe in recipes %}
                 <li>
-                    {{ recipe[2] }}<br> <!-- Title -->
-                    <i>Ingredients:</i><br> {{ recipe[0] }}<br> <!-- Ingredients -->
-                    <i>Steps:</i><br> {{ recipe[1] | safe }} <!-- Content-->
-                    <!-- Insert picture of food here; may be annoying if we have to find the pictures ourselves.  -->
+                    <a id = view href = "recipes/{{ recipe[3] }}"> {{recipe[3]}} </a> <br>
+                    <img src = "{{ recipe [4] }}" > <br>
                 </li>
                 <br>
             {% endfor %}
