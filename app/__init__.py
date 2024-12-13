@@ -64,8 +64,13 @@ def catalog():
 @app.route('/catalog/<title>')
 def view(title):
     info = get_recipe_content(title)
-    return render_template('recipe.html', info = info)
-
+    # print("info: ",info)
+    id = info[0]
+    ingredients = info[1]
+    steps = info[2]
+    name = info[3]
+    image = info[4]
+    return render_template('recipe.html', ingredients = ingredients, steps = steps, name = name, image=image)
 
 # Add note
 

@@ -124,3 +124,7 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-12 10:59
 amandaT, jacobL, kishiW, naomiL -- 2024-12-13 10:59
 * Routing for individual recipes pages
 * Adjusted html accordingly (changed layout, styling, moved content to other page)
+
+naomiL -- 2024-12-13 13:14
+* Adjusted variables (?) passed into templates for recipe/catalog
+* Catalog subpath for individual recipe works!

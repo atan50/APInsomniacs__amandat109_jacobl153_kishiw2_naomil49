@@ -58,7 +58,6 @@ def setup_recipes_table():
     except sqlite3.IntegrityError:
         flash('Database Error')
 
-
 def init_db():
     """initialize db if none exists"""
     if not os.path.exists('user_info.db'):
@@ -188,7 +187,7 @@ def get_recipes():
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
         result = cursor.execute("SELECT * FROM recipes").fetchall()
-        print("get_reciptes():\n",result)
+        # print("get_reciptes():\n",result)
         return result
 
 def get_news():
@@ -201,9 +200,10 @@ def get_news():
 def get_recipe_content(title):
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
-        result = cursor.execute("SELECT * FROM recipes WHERE title = ?", (title,)).fetchone()
-        if not reult:
-            flash("No recipe found")
+        result = cursor.execute("SELECT * FROM recipes WHERE name = ?", (title,)).fetchone()
+        if not result:
+            # flash("No recipe found")
+            print("no recipe")
             return redirect(url_for('home'))
         print("get_recipe_content():\n",result)
         return result

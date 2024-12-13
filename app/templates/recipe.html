@@ -26,13 +26,20 @@
 
             {{ comment }}
 
-        {% else}
+        {% else %}
 
         You have not left a comment. You can leave a comment here!
         <textarea id="editing" name="content" rows="4" cols="50"></textarea>
 
+        {% endif %}
 
     <footer> You are currently logged in as {{ user }} </footer>
 
+    <!-- <div>
+        name: {{ name }}<br>
+        ingredients: {{ ingredients }}
+        steps: {{ steps | safe }}
+        image: {{ image }}
+    </div> -->
 </body>
 </html>
