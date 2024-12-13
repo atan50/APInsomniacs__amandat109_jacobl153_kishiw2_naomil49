@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content
+from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content, get_breweries
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -81,6 +81,7 @@ def view(title):
 def brewery():
     # if request.method == 'POST':
     #     return brewery_API()
+    info = get_breweries()
     return redirect('/')
 
 

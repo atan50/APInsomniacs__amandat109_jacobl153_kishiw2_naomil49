@@ -207,3 +207,15 @@ def get_recipe_content(title):
             return redirect(url_for('home'))
         print("get_recipe_content():\n",result)
         return result
+
+# Brewery get methods -- general, latitude-longitude specific
+def get_breweries():
+    with sqlite3.connect('api_info.db') as conn:
+        cursor = conn.cursor()
+        result = cursor.execute("SELECT * FROM brewery").fetchall()
+        # if not result:
+        #     # flash("No recipe found")
+        #     print("no recipe")
+        #     return redirect(url_for('home'))
+        print("get_brewery_content():\n",result)
+        return result
