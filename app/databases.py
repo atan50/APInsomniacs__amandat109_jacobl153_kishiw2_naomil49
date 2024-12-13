@@ -74,7 +74,7 @@ def init_db():
         ''')
         conn.commit()
         conn.close()
-    if not os.path.exists('api_info.db'):  
+    if not os.path.exists('api_info.db'):
         conn = sqlite3.connect('api_info.db')
         cursor = conn.cursor()
         cursor.execute('''
@@ -188,7 +188,7 @@ def get_recipes():
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
         result = cursor.execute("SELECT * FROM recipes").fetchall()
-        # print("get_reciptes():\n",result)
+        print("get_reciptes():\n",result)
         return result
 
 def get_news():
@@ -196,4 +196,14 @@ def get_news():
         cursor = conn.cursor()
         result = cursor.execute("SELECT * FROM news").fetchall()
         # print("get_news():\n",result)
+        return result
+
+def get_recipe_content(title):
+    with sqlite3.connect('api_info.db') as conn:
+        cursor = conn.cursor()
+        result = cursor.execute("SELECT * FROM recipes WHERE title = ?", (title,)).fetchone()
+        if not reult:
+            flash("No recipe found")
+            return redirect(url_for('home'))
+        print("get_recipe_content():\n",result)
         return result

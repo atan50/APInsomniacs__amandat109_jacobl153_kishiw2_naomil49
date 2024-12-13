@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news
+from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -55,12 +55,17 @@ def news():
     return render_template('news.html', news = news)
 
 # Catalog page
-
-# Recipe page
-@app.route('/recipes')
-def recipes():
+@app.route('/catalog')
+def catalog():
     recipes = get_recipes()
     return render_template('catalog.html', recipes = recipes)
+
+# Recipes page; title is the recipe's title
+@app.route('/catalog/<title>')
+def view(title):
+    info = get_recipe_content(title)
+    return render_template('recipe.html', info = info)
+
 
 # Add note
 
