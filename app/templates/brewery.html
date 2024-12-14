@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/view.css">
+    <title>Breweries</title>
+</head>
+<body>
+    <!-- 
+        breweries: list of all breweries
+        nearest: info of the nearest brewery
+    -->
+    {% if breweries %}
+        hello
+    {% else %}
+        <!-- Placeholder: replace withthe method of getting user location information -->
+        <form action="/brewery", method="POST">
+            <input type="text" name="info">
+            <button type="submit"> Submit</button>
+        </form>
+    {% endif %}
+
+    <footer> You are currently logged in as {{ session['username'] }} </footer>
+</body>
+</html>

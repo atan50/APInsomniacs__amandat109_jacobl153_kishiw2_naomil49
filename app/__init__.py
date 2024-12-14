@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites
+from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites, get_nearest
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -42,7 +42,6 @@ def logout():
     if 'username' in session:
         return logout_user()
     return redirect('/')
-    # return render_template('logout.html')
 
 # User-specific routing
 @app.route('/profile')
@@ -79,6 +78,9 @@ def catalog():
 # Recipes page
 @app.route('/catalog/<id>', methods=['GET', 'POST'])
 def view(id):
+    if request.method == 'POST':
+        comment = request.form.get('content')
+        add_comment(id, comment)
     info = get_recipe_content(id)
     # print("info: ",info)    
     id = info[0]
@@ -86,25 +88,23 @@ def view(id):
     steps = info[2]
     name = info[3]
     image = info[4]
-
-    if request.method == 'POST':
-        comment = request.form.get('content')
-        # add_comment(id)
-        print(comment)
-    # else:
-        # access comment somehow?
-        # comment = info[5]
-
-    return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image)
+    if(info.length>5):
+        comment = info[5]
+    return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, comment=comment)
 
 # Brewery route
 @app.route('/brewery', methods = ['GET', 'POST'])
 def brewery():
-    # if request.method == 'POST':
-    #     return brewery_API()
-    info = get_breweries()
-    return redirect('/')
-
+    if 'username' not in session:
+        flash("You must be logged in!")
+        return redirect('/')
+    if request.method == 'POST':
+        # print(2)
+        info = get_breweries()
+        nearest_id = get_nearest(info)
+        nearest = info[nearest_id-1]
+        return render_template('brewery.html', breweries=info, nearest=nearest)
+    return render_template('brewery.html')
 
 # Run
 if __name__ == "__main__":

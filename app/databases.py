@@ -217,6 +217,9 @@ def get_breweries():
         # print("get_brewery_content():\n",result)
         return result
 
+def get_nearest(info):
+    return 1
+
 def get_favorites(user):
     with sqlite3.connect('user_info.db') as conn:
         cursor = conn.cursor()
