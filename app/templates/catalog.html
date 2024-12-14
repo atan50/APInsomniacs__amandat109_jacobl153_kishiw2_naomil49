@@ -5,30 +5,39 @@
     recipe[4]: img link
 -->
 <html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
 <head>
     <meta charset="UTF-8">
     <title>Catalog</title>
     <link rel="stylesheet" href="static/css/catalog.css">
+
 </head>
 <body>
-    <h1>Catalog</h1>
+    <h1 id = title>Catalog</h1>
         <form action="/">
             <input type="submit" name="return" value="Home">
         </form>
 
+    <div id = recipe>
     <!-- List of recipes -->
     {% if recipes %}
         <ul>
             {% for recipe in recipes %}
+		<div id = individual>
                 <li>
+		            <img id = pic src = "{{ recipe [4] }}" > <br>
                     <a id = view href = "catalog/{{ recipe[0] }}"> {{recipe[3]}} </a> <br>
-                    <img src = "{{ recipe [4] }}" > <br>
                 </li>
                 <br>
+		</div>
             {% endfor %}
         </ul>
 
     {% endif %}
+  </div<
 
 </body>
 </html>
