@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content, get_breweries
+from databases import login_user, init_db, create_user, logout_user, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -48,11 +48,19 @@ def logout():
 @app.route('/profile')
 def profile():
     if 'username' in session:
+        user = session['username']
         info = get_favorites(user)
         return render_template('profile.html', username = session['username'])
     return redirect('/')
 
 # Add comment
+# @app.route('/catalog/<name>/comment', methods = ['GET', 'POST'])
+# def comment():
+#     if 'username' not in session:
+#         flash('You must be logged in to add comments!')
+#         return redirect(url_for('home'))
+#     if request.method == 'POST':
+        
 
 # General routing
 
@@ -69,16 +77,25 @@ def catalog():
     return render_template('catalog.html', recipes = recipes)
 
 # Recipes page
-@app.route('/catalog/<name>')
-def view(name):
-    info = get_recipe_content(name)
-    # print("info: ",info)
+@app.route('/catalog/<id>', methods=['GET', 'POST'])
+def view(id):
+    info = get_recipe_content(id)
+    # print("info: ",info)    
     id = info[0]
     ingredients = info[1]
     steps = info[2]
     name = info[3]
     image = info[4]
-    return render_template('recipe.html', ingredients = ingredients, steps = steps, name = name, image=image)
+
+    if request.method == 'POST':
+        comment = request.form.get('content')
+        # add_comment(id)
+        print(comment)
+    # else:
+        # access comment somehow?
+        # comment = info[5]
+
+    return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image)
 
 # Brewery route
 @app.route('/brewery', methods = ['GET', 'POST'])

@@ -180,8 +180,6 @@ def print_table():
     except sqlite3.IntegrityError:
         print('Database Error')
 
-# print_table()
-
 # Accessing databases
 def get_recipes():
     with sqlite3.connect('api_info.db') as conn:
@@ -197,10 +195,10 @@ def get_news():
         # print("get_news():\n",result)
         return result
 
-def get_recipe_content(title):
+def get_recipe_content(id):
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
-        result = cursor.execute("SELECT * FROM recipes WHERE name = ?", (title,)).fetchone()
+        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (id,)).fetchone()
         if not result:
             # flash("No recipe found")
             print("no recipe")
@@ -219,7 +217,7 @@ def get_breweries():
         # print("get_brewery_content():\n",result)
         return result
 
-def get_user_favorites(user):
+def get_favorites(user):
     with sqlite3.connect('user_info.db') as conn:
         cursor = conn.cursor()
         result_user = cursor.execute("SELECT * FROM users WHERE username = ?", (user,)).fetchone()

@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<!-- 
+    recipe[0]: id
+    recipe[3]: name
+    recipe[4]: img link
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +21,7 @@
         <ul>
             {% for recipe in recipes %}
                 <li>
-                    <a id = view href = "catalog/{{ recipe[3] }}"> {{recipe[3]}} </a> <br>
+                    <a id = view href = "catalog/{{ recipe[0] }}"> {{recipe[3]}} </a> <br>
                     <img src = "{{ recipe [4] }}" > <br>
                 </li>
                 <br>

@@ -30,17 +30,20 @@
         </div>
 
     </form>
-
+    {% if session['username'] %}
         {% if comment %}
 
             {{ comment }}
 
         {% else %}
-
-        You have not left a comment. You can leave a comment here!
-        <textarea id="editing" name="content" rows="4" cols="50"></textarea>
-
+        <form action="/catalog/{{ id }}", method="POST">
+            You have not left a comment. You can leave a comment here!
+            <textarea id="editing" name="content" rows="4" cols="50"></textarea>
+            <br>
+            <button type="submit"> Submit</button>
+        </form>
         {% endif %}
+    {% endif %}
 
     <footer> You are currently logged in as {{ session['username'] }} </footer>
 
