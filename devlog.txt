@@ -128,3 +128,14 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-13 10:59
 naomiL -- 2024-12-13 13:14
 * Adjusted variables (?) passed into templates for recipe/catalog
 * Catalog subpath for individual recipe works!
+
+amandaT -- 2024-12-15 14:44
+* Created database tables for favorite_recipes and recipe_comments
+* Created functions for favoriting recipes:
+  * add_favorite
+    * Issue: Returns true
+  * delete_favorite
+    * Cannot run multiple SQLITE statements at once (check both user & recipe id)
+    + Cannot use variables in table names (to create new favorites table per user)
+* Temporary? routing for favoriting recipes in recipe HTML file
+* id = info[0] in __init__.py creates response error
