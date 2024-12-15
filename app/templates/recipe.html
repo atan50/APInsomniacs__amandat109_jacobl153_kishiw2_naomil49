@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<!-- 
+<!--
     name: {{ name }}<br>
     ingredients: {{ ingredients }}
     steps: {{ steps | safe }}
@@ -15,7 +15,7 @@
 
 -->
 
-<nav> 
+<nav>
     <form action="/">
         <input type="submit" name="return" value="Home">
     </form>
@@ -31,6 +31,19 @@
 
     </form>
     {% if session['username'] %}
+
+        <!-- Favorite Button Start -->
+        {% if favorite %}
+        <form action="/unfavorite_item/{{ id }}", method="POST">
+            <input type="submit" name="return" value="Unfavorite">
+        {% else %}
+        <form action="/favorite_item/{{ id }}", method="POST">
+            <input type="submit" name="return" value="Favorite">
+
+        {% endif %}
+
+        <!-- Favorite Button End -->
+
         {% if comment %}
 
             {{ comment }}
@@ -43,10 +56,12 @@
             <button type="submit"> Submit</button>
         </form>
         {% endif %}
+
+        <footer> You are currently logged in as {{ session['username'] }} </footer>
     {% endif %}
 
-    <footer> You are currently logged in as {{ session['username'] }} </footer>
 
-    
+
+
 </body>
 </html>

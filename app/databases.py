@@ -71,6 +71,19 @@ def init_db():
                 password TEXT NOT NULL
             )
         ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS favorite_recipes (
+                username TEXT NOT NULL,
+                recipe_id TEXT NOT NULL
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS recipe_comments (
+                username TEXT NOT NULL,
+                recipe_id TEXT NOT NULL,
+                comment TEXT NOT NULL
+            )
+        ''')
         conn.commit()
         conn.close()
     if not os.path.exists('api_info.db'):
@@ -102,12 +115,12 @@ def init_db():
             )
         ''')
 
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS favorite_recipes (
-                user INTEGER PRIMARY KEY AUTOINCREMENT,
-                recipes REFERENCES recipes(id)
-            )
-        ''')
+        # cursor.execute('''
+        #     CREATE TABLE IF NOT EXISTS favorite_recipes (
+        #         user INTEGER PRIMARY KEY AUTOINCREMENT,
+        #         recipes REFERENCES recipes(id)
+        #     )
+        # ''')
         conn.commit()
         setup_brewery_table()
         setup_articles_table()
@@ -166,6 +179,48 @@ def logout_user():
     session.pop('username',)
     return redirect('/')
 
+# adding recipe to favorite_recipes database
+def add_favorite(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO favorite_recipes (username, recipe_id) VALUES (?, ?)',
+                           (user, id))
+            conn.commit()
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+# deleting recipe from favorites list
+def delete_favorite(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('DELETE FROM favorite_recipes WHERE username = ?; WHERE id = ?', (user, id))
+                # !!!
+                # MAJOR PROBLEM: Cannot run more than one statment at once (checking usernames match + recipe ids match)
+                # !!!
+
+            conn.commit()
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+#checks if current viewing recipes is on user's favorites list
+def check_favorite(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            results = cursor.execute("SELECT * FROM favorite_recipes WHERE username = ?", (user,)).fetchone()
+            if not results:
+                return False
+            else:
+                for result in results:
+                    temp_id = cursor.execute("SELECT id FROM favorite_recipes").fetchone()
+                    if id == temp_id:
+                        return True
+                return False
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
 # checking contents of tables
 def print_table():
     try:
@@ -220,16 +275,20 @@ def get_breweries():
 def get_nearest(info):
     return 1
 
+# showing recipes on favorites/profile page
 def get_favorites(user):
-    with sqlite3.connect('user_info.db') as conn:
-        cursor = conn.cursor()
-        result_user = cursor.execute("SELECT * FROM users WHERE username = ?", (user,)).fetchone()
-        if not result_user:
-            # flash("No recipe found")
-            print("No such user")
-            return redirect(url_for('home'))
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            result_user = cursor.execute("SELECT * FROM favorite_recipes WHERE username = ?", (user,)).fetchone()
+            if not result_user:
+                # flash("No recipe found")
+                print("No such user")
+                return redirect(url_for('home'))
 
-        # Function not finished: add access favorites column, which does not exist yet
-        
-        # print("get_user_favorites():\n",result)
-        return 1
+            # Function not finished: add access favorites column, which does not exist yet
+
+            # print("get_user_favorites():\n",result)
+            return result
+    except sqlite3.IntegrityError:
+        print('Database Error')
