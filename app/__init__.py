@@ -58,8 +58,7 @@ def profile():
 #     if 'username' not in session:
 #         flash('You must be logged in to add comments!')
 #         return redirect(url_for('home'))
-#     if request.method == 'POST':
-        
+#     if request.method == 'POST':        
 
 # General routing
 
@@ -88,9 +87,11 @@ def view(id):
     steps = info[2]
     name = info[3]
     image = info[4]
-    if(info.length>5):
+    print(len(info))
+    if(len(info)>5):
         comment = info[5]
-    return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, comment=comment)
+        return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, comment=comment)
+    return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image)
 
 # Brewery route
 @app.route('/brewery', methods = ['GET', 'POST'])
