@@ -145,3 +145,6 @@ amandaT -- 2024-12-15 16:21
   * null if should show data
   * TEXT: 'deleted' if deleted and should not show
 * altered delete_favorite to loop through each row in database
+
+kishiW -- 2024-12-15 23:51
+* updated lots of html and css
