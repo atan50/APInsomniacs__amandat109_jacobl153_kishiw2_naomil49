@@ -78,7 +78,7 @@ def catalog():
 @app.route('/catalog/<id>', methods=['GET', 'POST'])
 def view(id):
     user = session.get('username')
-
+    delete_favorite(id, user)
     if request.method == 'POST':
         comment = request.form.get('content')
         add_comment(id, comment)

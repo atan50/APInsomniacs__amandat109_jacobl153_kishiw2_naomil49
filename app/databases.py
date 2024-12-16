@@ -73,15 +73,19 @@ def init_db():
         ''')
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS favorite_recipes (
+                table_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
-                recipe_id TEXT NOT NULL
+                recipe_id TEXT NOT NULL,
+                deleted TEXT
             )
         ''')
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS recipe_comments (
+                table_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
                 recipe_id TEXT NOT NULL,
-                comment TEXT NOT NULL
+                comment TEXT NOT NULL,
+                deleted TEXT
             )
         ''')
         conn.commit()
@@ -179,6 +183,19 @@ def logout_user():
     session.pop('username',)
     return redirect('/')
 
+#return favorite_recipes row length
+def favorite_rows():
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            query = "SELECT COUNT(1) FROM favorite_recipes"
+            cursor.execute(query)
+            result = cursor.fetchone()
+            row_count = result[0]
+            return row_count
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
 # adding recipe to favorite_recipes database
 def add_favorite(id, user):
     try:
@@ -195,11 +212,12 @@ def delete_favorite(id, user):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            cursor.execute('DELETE FROM favorite_recipes WHERE username = ?; WHERE id = ?', (user, id))
-                # !!!
-                # MAJOR PROBLEM: Cannot run more than one statment at once (checking usernames match + recipe ids match)
-                # !!!
-
+            for i in range(1, favorite_rows()+1):
+                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+                temp_user = results[1]
+                temp_recipe = results[2]
+                if(temp_user == user and temp_recipe == id):
+                    cursor.excute('UPDATE favorite_recipes SET deleted = ? WHERE table_id = ?', ('deleted'), (i))
             conn.commit()
     except sqlite3.IntegrityError:
         print('Database Error')
@@ -208,16 +226,37 @@ def delete_favorite(id, user):
 def check_favorite(id, user):
     try:
         with sqlite3.connect('user_info.db') as conn:
+            for i in range(1, favorite_rows()+1):
+                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+                temp_user = results[1]
+                temp_recipe = results[2]
+                if(temp_user == user and temp_recipe == id):
+                    return True
+            return False
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+#return recipe_comments row length
+def comment_rows():
+    try:
+        with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            results = cursor.execute("SELECT * FROM favorite_recipes WHERE username = ?", (user,)).fetchone()
-            if not results:
-                return False
-            else:
-                for result in results:
-                    temp_id = cursor.execute("SELECT id FROM favorite_recipes").fetchone()
-                    if id == temp_id:
-                        return True
-                return False
+            query = "SELECT COUNT(1) FROM recipe_comments"
+            cursor.execute(query)
+            result = cursor.fetchone()
+            row_count = result[0]
+            return row_count
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+#adds comments
+def add_comment(id, user, comment):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO recipe_comments (username, recipe_id, comment) VALUES (?, ?, ?)',
+                           (user, id, comment))
+            conn.commit()
     except sqlite3.IntegrityError:
         print('Database Error')
 
