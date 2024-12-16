@@ -319,12 +319,16 @@ def get_favorites(user):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            result_user = cursor.execute("SELECT * FROM favorite_recipes WHERE username = ?", (user,)).fetchone()
-            if not result_user:
-                # flash("No recipe found")
-                print("No such user")
-                return redirect(url_for('home'))
-
+            data = []
+            for i in range(1, favorite_rows()+1):
+                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+                if(results[3] == NULL):
+                    temp_id = results[2]
+                    conn.close()
+                    with sqlite3.connect('api_info.db') as conn:
+                        cursor = conn.cursor()
+                        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (temp_id)).fetchone()
+                        data.append(result)
             # Function not finished: add access favorites column, which does not exist yet
 
             # print("get_user_favorites():\n",result)
