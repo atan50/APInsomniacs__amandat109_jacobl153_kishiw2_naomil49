@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/static/css/view.css">
+    <link rel="stylesheet" href="/static/css/recipe.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <title>{{ name }}</title>
 </head>
 <body>
@@ -15,19 +18,17 @@
 
 -->
 
-<nav>
-    <form action="/">
-        <input type="submit" name="return" value="Home">
-    </form>
-</nav>
+    <div id="top">
+        <form action="/">
+            <input id="home" type="submit" name="return" value="Home">
+        </form>
 
-    <div id ="background">
+        <h1 id="title">{{ name }}</h1>
+    </div>
 
-        <h1>{{ name }}</h1>
-
-        <div id = "content">
-            <p>{{ content }}</p>
-        </div>
+    <div id = "ingredients">
+        <p>{{ ingredients }}</p>
+    </div>
 
     </form>
     {% if session['username'] %}
@@ -37,30 +38,34 @@
         <form action="/unfavorite_item/{{ id }}", method="POST">
             <input type="submit" name="return" value="Unfavorite">
         {% else %}
-        <form action="/favorite_item/{{ id }}", method="POST">
-            <input type="submit" name="return" value="Favorite">
+            <form action="/favorite_item/{{ id }}" , method="POST">
+                <input type="submit" name="return" value="Favorite">
 
         {% endif %}
 
         <!-- Favorite Button End -->
-
         {% if comment %}
 
             {{ comment }}
 
+            {% else %}
+                <form action="/catalog/{{ id }}" , method="POST">
+                    You have not left a comment. You can leave a comment here!
+                    <textarea id="editing" name="content" rows="4" cols="50"></textarea>
+                    <br>
+                    <button type="submit"> Submit</button>
+                </form>
+            {% endif %}
+
+                <footer> You are currently logged in as {{ session['username'] }} </footer>
+
         {% else %}
-        <form action="/catalog/{{ id }}", method="POST">
-            You have not left a comment. You can leave a comment here!
-            <textarea id="editing" name="content" rows="4" cols="50"></textarea>
-            <br>
-            <button type="submit"> Submit</button>
-        </form>
+            <footer>
+                You are currently not logged in.
+                <a id ="login"href="{{ url_for('login') }}"> Log In?</a>
+            </footer>
+
         {% endif %}
-
-        <footer> You are currently logged in as {{ session['username'] }} </footer>
-    {% endif %}
-
-
 
 
 </body>

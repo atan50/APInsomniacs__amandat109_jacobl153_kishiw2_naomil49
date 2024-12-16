@@ -27,13 +27,13 @@
     {% if recipes %}
         <ul>
             {% for recipe in recipes %}
-		<div id = individual>
+		    <div id = individual>
                 <li>
 		            <img id = pic src = "{{ recipe [4] }}" > <br>
                     <a id = view href = "catalog/{{ recipe[0] }}"> {{recipe[3]}} </a> <br>
                 </li>
                 <br>
-		</div>
+		    </div>
             {% endfor %}
         </ul>
 

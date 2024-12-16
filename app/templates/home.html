@@ -3,7 +3,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
 <head>
     <meta charset="utf-8">
@@ -13,35 +15,44 @@
 </head>
 
 <body>
-    <div id="background">
-        <h1 id="title">Somni Bites</h1>
 
-        <div id="buttons">
-            {% if username %}
-            <br>
-                Hello, {{ username }}
-                <a href="{{ url_for('logout') }}">Log out</a><br>
-                <a href = "{{ url_for('profile') }}"> Profile</a>
-            {% else %}
-                <a id = register href="{{ url_for('register') }}">Register</a>
-                <a id = login href="{{ url_for('login') }}">Log in</a><br>
-            {% endif %}
+    <div id="background">
+        <br>
+        {% if username %}
+        <div id="name">
+            Hello, {{ username }} !
+            <a id ="link" href="{{ url_for('logout') }}">Log out</a><br>
+            Visit your
+            <a id ="link" href="{{ url_for('profile') }}"> Profile</a>
         </div>
+        {% else %}
+        <div id="buttons">
+            <a id=login href="{{ url_for('login') }}">Log in</a>
+            <a id=register href="{{ url_for('register') }}">Register</a><br>
+        </div>
+        {% endif %}
+
+        <h1 id="title">Somni Bites</h1>
 
     </div>
 
-        <div id="cata" class="fa fa-3x animation fade-in-up" data-mbd-animation-init= "" data-mdb-animation-start="onScroll" data-mdb-animation="fade-in-up" data-mbd-animation-initialized="true" style="visibility: visible; animation-duration: 500ms">
-            <p> View our catalog of recipes! </p>
-            <a id = catalog href="{{ url_for('catalog') }}"> Catalog </a><br>
-        </div>
+    <div id="cata">
+        View our
+        <a id=link href="{{ url_for('catalog') }}"> Catalog </a>
+        of recipes!
+    </div>
 
-        <div id="brew" class="fa fa-3x animation fade-in-up" data-mbd-animation-init= "" data-mdb-animation-start="onScroll" data-mdb-animation="fade-in-up" data-mbd-animation-initialized="true" style="visibility: visible; animation-duration: 500ms">
-            <p> Visit the brewery! </p>
-            <a id = brewery href="{{ url_for('brewery') }}"> Brewery</a><br>
-        </div>
-        <div>
-            <a href = "{{ url_for('news') }}"> News</a>
-        </div>
+    <div id="new">
+        Can't choose what to try? Read some
+        <a id=link href="{{ url_for('news') }}"> News</a>
+        articles!
+    </div>
+
+    <div id="brew">
+        Visit the
+        <a id=link href="{{ url_for('brewery') }}"> Brewery</a>
+        to find groceries near you!
+    </div>
 
 </body>
 
