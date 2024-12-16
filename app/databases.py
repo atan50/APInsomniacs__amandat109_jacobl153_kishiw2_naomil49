@@ -212,12 +212,13 @@ def delete_favorite(id, user):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            for i in range(1, favorite_rows()+1):
-                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
-                temp_user = results[1]
-                temp_recipe = results[2]
-                if(temp_user == user and temp_recipe == id):
-                    cursor.execute("UPDATE favorite_recipes SET deleted = ? WHERE table_id = ?", ('deleted', id))
+            cursor.execute("DELETE FROM favorite_recipes WHERE table_id = ? AND username = ?;", (id, user))
+            # for i in range(1, favorite_rows()+1):
+            #     results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+            #     temp_user = results[1]
+            #     temp_recipe = results[2]
+            #     if(temp_user == user and temp_recipe == id):
+            #         cursor.execute("UPDATE favorite_recipes SET deleted = ? WHERE table_id = ?", ('deleted', id))
             conn.commit()
     except sqlite3.IntegrityError:
         print('Database Error')
@@ -227,12 +228,15 @@ def check_favorite(id, user):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            for i in range(1, favorite_rows()+1):
-                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
-                temp_user = results[1]
-                temp_recipe = results[2]
-                if(temp_user == user and temp_recipe == id):
-                    return True
+            result = cursor.execute("SELECT * FROM favorite_recipes WHERE recipe_id = ? AND username = ?;", (id, user)).fetchone()
+            if result:
+                return True
+            # for i in range(1, favorite_rows()+1):
+            #     results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+            #     temp_user = results[1]
+            #     temp_recipe = results[2]
+            #     if(temp_user == user and temp_recipe == id):
+            #         return True
             return False
     except sqlite3.IntegrityError:
         print('Database Error')

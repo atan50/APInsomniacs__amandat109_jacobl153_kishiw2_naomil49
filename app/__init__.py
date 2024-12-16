@@ -82,11 +82,11 @@ def view(id):
             add_comment(id, comment)
         if request.form.get('fav'):
             fav = request.form.get('fav')
+            print("\n\nform favorite:", fav)
             if fav == 'Unfavorite':
                 delete_favorite(id, user)
             if fav == 'Favorite':
-                add_favorite(id, user)
-            print(fav)
+                add_favorite(id, user)            
     
     # Access info
     info = get_recipe_content(id)
@@ -97,6 +97,7 @@ def view(id):
     name = info[3]
     image = info[4]
     favorite = check_favorite(id,user)
+    print("\n\n:favorite", favorite)
     if(len(info)>5):
         comment = info[5]
         return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite, comment=comment)
