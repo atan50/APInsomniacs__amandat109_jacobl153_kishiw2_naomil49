@@ -35,6 +35,10 @@ def getArticles():
         headlines = [article['headline']['print_headline'] for article in articles]
         info_list =[]
         for (url, lead_par, headline) in zip(urls, lead_pars, headlines):
+            print("\n\n",lead_par,headline, '.' in lead_par)
+            par_len = (len(lead_par))
+            if(par_len > 0 and '.' not in lead_par):
+                continue
             info_list.append([url, lead_par, headline])
         return (info_list)
     except Exception as e:
@@ -48,9 +52,9 @@ def getRecipes():
         url = f"https://api.spoonacular.com/recipes/random?apiKey={content}"
         response = requests.get(url)# Get Request of URL. API Key is required at end.
         data = response.json()# random recipe and all its info
-        
-        title = data['recipes'][0]['title']   	 
-        
+
+        title = data['recipes'][0]['title']
+
         instructions = data['recipes'][0]['instructions']
 
         ingredients = data['recipes'][0]['extendedIngredients']
