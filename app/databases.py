@@ -71,6 +71,23 @@ def init_db():
                 password TEXT NOT NULL
             )
         ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS favorite_recipes (
+                table_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL,
+                recipe_id TEXT NOT NULL,
+                deleted TEXT
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS recipe_comments (
+                table_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT NOT NULL,
+                recipe_id TEXT NOT NULL,
+                comment TEXT NOT NULL,
+                deleted TEXT
+            )
+        ''')
         conn.commit()
         conn.close()
     if not os.path.exists('api_info.db'):
@@ -102,12 +119,12 @@ def init_db():
             )
         ''')
 
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS favorite_recipes (
-                user INTEGER PRIMARY KEY AUTOINCREMENT,
-                recipes REFERENCES recipes(id)
-            )
-        ''')
+        # cursor.execute('''
+        #     CREATE TABLE IF NOT EXISTS favorite_recipes (
+        #         user INTEGER PRIMARY KEY AUTOINCREMENT,
+        #         recipes REFERENCES recipes(id)
+        #     )
+        # ''')
         conn.commit()
         setup_brewery_table()
         setup_articles_table()
@@ -166,6 +183,83 @@ def logout_user():
     session.pop('username',)
     return redirect('/')
 
+#return favorite_recipes row length
+def favorite_rows():
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            query = "SELECT COUNT(1) FROM favorite_recipes"
+            cursor.execute(query)
+            result = cursor.fetchone()
+            row_count = result[0]
+            return row_count
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+# adding recipe to favorite_recipes database
+def add_favorite(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO favorite_recipes (username, recipe_id) VALUES (?, ?)',
+                           (user, id))
+            conn.commit()
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+# deleting recipe from favorites list
+def delete_favorite(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            for i in range(1, favorite_rows()+1):
+                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+                temp_user = results[1]
+                temp_recipe = results[2]
+                if(temp_user == user and temp_recipe == id):
+                    cursor.excute('UPDATE favorite_recipes SET deleted = ? WHERE table_id = ?', ('deleted'), (i))
+            conn.commit()
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+#checks if current viewing recipes is on user's favorites list
+def check_favorite(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            for i in range(1, favorite_rows()+1):
+                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+                temp_user = results[1]
+                temp_recipe = results[2]
+                if(temp_user == user and temp_recipe == id):
+                    return True
+            return False
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+#return recipe_comments row length
+def comment_rows():
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            query = "SELECT COUNT(1) FROM recipe_comments"
+            cursor.execute(query)
+            result = cursor.fetchone()
+            row_count = result[0]
+            return row_count
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+#adds comments
+def add_comment(id, user, comment):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO recipe_comments (username, recipe_id, comment) VALUES (?, ?, ?)',
+                           (user, id, comment))
+            conn.commit()
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
 # checking contents of tables
 def print_table():
     try:
@@ -220,16 +314,20 @@ def get_breweries():
 def get_nearest(info):
     return 1
 
+# showing recipes on favorites/profile page
 def get_favorites(user):
-    with sqlite3.connect('user_info.db') as conn:
-        cursor = conn.cursor()
-        result_user = cursor.execute("SELECT * FROM users WHERE username = ?", (user,)).fetchone()
-        if not result_user:
-            # flash("No recipe found")
-            print("No such user")
-            return redirect(url_for('home'))
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            result_user = cursor.execute("SELECT * FROM favorite_recipes WHERE username = ?", (user,)).fetchone()
+            if not result_user:
+                # flash("No recipe found")
+                print("No such user")
+                return redirect(url_for('home'))
 
-        # Function not finished: add access favorites column, which does not exist yet
-        
-        # print("get_user_favorites():\n",result)
-        return 1
+            # Function not finished: add access favorites column, which does not exist yet
+
+            # print("get_user_favorites():\n",result)
+            return result
+    except sqlite3.IntegrityError:
+        print('Database Error')

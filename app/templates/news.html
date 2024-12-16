@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<!-- 
+    title: article[1]
+    content: article[2]
+    link: article[3]
+-->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,10 +20,9 @@
         <ul>
             {% for article in news %}
                 <li>
-                    {{ article[0] }}<br> <!-- Title -->
-                    {{ article[1] }} <!-- Ingredients -->
-                    <a href = "{{ article[2] }}"> See more </a> <!-- Content-->
-                    <!-- Insert picture of food here; may be annoying if we have to find the pictures ourselves.  -->
+                    {{ article[1] }}<br> <!-- Title -->
+                    {{ article[2] }} <!-- Content -->
+                    <a href = "{{ article[3] }}"> See more </a> <!-- Link-->
                 </li>
                 <br>
             {% endfor %}
