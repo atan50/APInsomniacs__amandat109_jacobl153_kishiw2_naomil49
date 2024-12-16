@@ -12,6 +12,9 @@ from databases import login_user, init_db, create_user, logout_user, add_favorit
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
+# print('\n\nget_recipes():', get_recipes())
+# print('\n\nget_news():', get_news())
+# print('\n\nget_breweries():', get_breweries())
 
 # Secret key/setup
 app = Flask(__name__)
@@ -71,6 +74,8 @@ def catalog():
 def view(id):
     user = session.get('username')
     delete_favorite(id, user)
+
+    # Handle info
     if request.method == 'POST':
         if request.form.get('comment'):
             comment = request.form.get('content')
@@ -82,6 +87,8 @@ def view(id):
             if fav == 'Favorite':
                 add_favorite(id, user)
             print(fav)
+    
+    # Access info
     info = get_recipe_content(id)
     # print("info: ",info)
     id = info[0]
@@ -89,11 +96,7 @@ def view(id):
     steps = info[2]
     name = info[3]
     image = info[4]
-    print(len(info))
-    if(check_favorite(id, user)):
-        favorite = True
-    else:
-        favorite = False
+    favorite = check_favorite(id,user)
     if(len(info)>5):
         comment = info[5]
         return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite, comment=comment)

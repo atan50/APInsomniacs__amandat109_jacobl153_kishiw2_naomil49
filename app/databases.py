@@ -217,7 +217,7 @@ def delete_favorite(id, user):
                 temp_user = results[1]
                 temp_recipe = results[2]
                 if(temp_user == user and temp_recipe == id):
-                    cursor.excute('UPDATE favorite_recipes SET deleted = ? WHERE table_id = ?', ('deleted'), (i))
+                    cursor.execute("UPDATE favorite_recipes SET deleted = ? WHERE table_id = ?", ('deleted', id))
             conn.commit()
     except sqlite3.IntegrityError:
         print('Database Error')
@@ -226,6 +226,7 @@ def delete_favorite(id, user):
 def check_favorite(id, user):
     try:
         with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
             for i in range(1, favorite_rows()+1):
                 results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
                 temp_user = results[1]
@@ -261,16 +262,16 @@ def add_comment(id, user, comment):
         print('Database Error')
 
 # checking contents of tables
-def make_ingredients_list(name):
-	try:
-    	with sqlite3.connect('api_info.db') as conn:
-        	cursor = conn.cursor()
-        	cursor.execute("SELECT ingredients FROM recipes where name = ?", (name,))
-        	ingredients = str(cursor.fetchall())[3:-4]
-        	ingred_list = ingredients.split(" + ")
-        	return ingred_list
-	except sqlite3.IntegrityError:
-    		print('Database Error')
+# def make_ingredients_list(name):
+#     try:
+#         with sqlite3.connect('api_info.db') as conn:
+#         	cursor = conn.cursor()
+#         	cursor.execute("SELECT ingredients FROM recipes where name = ?", (name,))
+#         	ingredients = str(cursor.fetchall())[3:-4]
+#         	ingred_list = ingredients.split(" + ")
+#         	return ingred_list
+#     except sqlite3.IntegrityError:
+#     		print('Database Error')
 
 
 def print_table():
