@@ -204,7 +204,7 @@ def add_favorite(id, user):
             cursor.execute('INSERT INTO favorite_recipes (username, recipe_id) VALUES (?, ?)',
                            (user, id))
             conn.commit()
-    except sqli            results = cursor.execute("SELECT * FROM favorite_recipes".fetchone()te3.IntegrityError:
+    except sqlite3.IntegrityError:
         print('Database Error')
 
 # deleting recipe from favorites list
@@ -315,18 +315,19 @@ def get_nearest(info):
     return 1
 
 # showing recipes on favorites/profile page
-def get_favorites():
+def get_favorites(user):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            data = []
-            for i in range(1, favorite_rows()+1):
-                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
-                if(results[3] == NULL):
-                    data.append(results)
+            result_user = cursor.execute("SELECT * FROM favorite_recipes WHERE username = ?", (user,)).fetchone()
+            if not result_user:
+                # flash("No recipe found")
+                print("No such user")
+                return redirect(url_for('home'))
+
             # Function not finished: add access favorites column, which does not exist yet
 
             # print("get_user_favorites():\n",result)
-            return data
+            return result
     except sqlite3.IntegrityError:
         print('Database Error')

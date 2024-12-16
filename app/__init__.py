@@ -52,14 +52,6 @@ def profile():
         return render_template('profile.html', username = session['username'])
     return redirect('/')
 
-# Add comment
-# @app.route('/catalog/<name>/comment', methods = ['GET', 'POST'])
-# def comment():
-#     if 'username' not in session:
-#         flash('You must be logged in to add comments!')
-#         return redirect(url_for('home'))
-#     if request.method == 'POST':
-
 # General routing
 
 # News page
@@ -80,8 +72,16 @@ def view(id):
     user = session.get('username')
     delete_favorite(id, user)
     if request.method == 'POST':
-        comment = request.form.get('content')
-        add_comment(id, comment)
+        if request.form.get('comment'):
+            comment = request.form.get('content')
+            add_comment(id, comment)
+        if request.form.get('fav'):
+            fav = request.form.get('fav')
+            if fav == 'Unfavorite':
+                delete_favorite(id, user)
+            if fav == 'Favorite':
+                add_favorite(id, user)
+            print(fav)
     info = get_recipe_content(id)
     # print("info: ",info)
     id = info[0]
@@ -99,17 +99,17 @@ def view(id):
         return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite, comment=comment)
     return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite)
 
-@app.route('/favorite_item/<id>', methods=['GET', 'POST'])
-def favorite_item(id):
-    user = session.get('username')
-    add_favorite(id, user)
-    return redirect("/catalog/id")
-
-@app.route('/unfavorite_item/<id>', methods=['GET', 'POST'])
-def unfavorite_item(id):
-    user = session.get('username')
-    add_favorite(id, user)
-    return redirect("/catalog/id")
+# @app.route('/favorite_item/<id>', methods=['GET', 'POST'])
+# def favorite_item(id):
+#     user = session.get('username')
+#     add_favorite(id, user)
+#     return redirect("/catalog/id")
+#
+# @app.route('/unfavorite_item/<id>', methods=['GET', 'POST'])
+# def unfavorite_item(id):
+#     user = session.get('username')
+#     add_favorite(id, user)
+#     return redirect("/catalog/id")
 
 # Brewery route
 @app.route('/brewery', methods = ['GET', 'POST'])
