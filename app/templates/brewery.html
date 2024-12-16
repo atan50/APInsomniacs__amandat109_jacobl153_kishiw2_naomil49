@@ -1,7 +1,28 @@
 <!DOCTYPE html>
 <html>
+
+ <script>
+    const x = document.getElementById("demo");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+    }
+</script> 
+
 <head>
-    <link rel="stylesheet" href="/static/css/view.css">
+    <link rel="stylesheet" href="/static/css/brewery.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <title>Breweries</title>
 </head>
 <body>
@@ -9,15 +30,33 @@
         breweries: list of all breweries
         nearest: info of the nearest brewery
     -->
-    {% if breweries %}
-        hello
-    {% else %}
-        <!-- Placeholder: replace withthe method of getting user location information -->
-        <form action="/brewery", method="POST">
-            <input type="text" name="info">
-            <button type="submit"> Submit</button>
+    <div id=top>
+        <form action="/">
+            <input id = home type="submit" name="return" value="Home">
         </form>
+        <h1 id=title>Breweries</h1>
+    </div>
+
+    {% if breweries %}
+        <div id = breweries>
+            {% for brewery in breweries %}
+                <li>
+                    <div id = individual>
+                    {{ brewery[1] }} <br>
+                    Longitude: {{brewery[2]}} <br>
+                    Latitude: {{brewery[3]}}
+                    </div>
+                </li>
+            {% endfor %}
+        </div>
+    {% else %}
+    <div id = geolocation>
+        <form action="/brewery", method="POST">
+            <button id= location onClick="getLocation()"> Allow us to access your Location </button>
+        </form>
+    </div>
     {% endif %}
+    
 
     <footer> You are currently logged in as {{ session['username'] }} </footer>
 </body>

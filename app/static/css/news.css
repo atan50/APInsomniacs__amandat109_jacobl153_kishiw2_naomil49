@@ -4,13 +4,14 @@ html {
 }
 
 body {
+    list-style-type: none;
     margin: 0px;
     background-size: cover;
     background-color: #fee9ff;
 }
 
 #ul {
-    list-style-type: none;
+    list-style: none;
     padding: 2%;
 }
 
