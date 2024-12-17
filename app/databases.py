@@ -223,7 +223,7 @@ def get_news():
 def get_recipe_content(id):
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
-        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (id,)).fetchone() 
+        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (id,)).fetchone()
         if not result:
             # flash("No recipe found")
             print("no recipe")
@@ -247,9 +247,9 @@ def get_nearest(info):
 
 def get_favorites(user):
     ids = get_favorites_id(user)
-    print(ids)
+    # print(ids)
     ids_string = ','.join(ids)
-    print(ids_string)
+    # print(ids_string)
     sql="select * from recipes where id IN (" + ids_string + ")"
     # print(sql)
     try:
