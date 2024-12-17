@@ -91,12 +91,12 @@ def view(id):
             # print('edited comment: ', get_comment(id, user))
         if request.form.get('favorite'):
             fav = request.form.get('favorite')
-            print("\n\nfav:", fav)
+            # print("\n\nfav:", fav)
             if fav == 'false':
-                print('rem')
+                # print('rem')
                 delete_favorite(id, user)
             if fav == 'true':
-                print('add')
+                # print('add')
                 add_favorite(id, user)
         else:
             # print("rem_2")
