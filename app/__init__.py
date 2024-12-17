@@ -80,14 +80,15 @@ def view(id):
 
     # Handle info
     if request.method == 'POST':
-        if request.form.get('new_comment'):
+        if request.form.get('new_comment'):     # references form for when comment doesn't exist
             comm = request.form['new_comment']
             add_comment(id, user, comm)
-            print('new comment: ', get_comment(id, user))
-        if request.form.get('edit_comment'):
+            # print('new comment: ', get_comment(id, user))
+        if request.form.get('edit_comment'):    # # references form for when comment is being edited
             comment = request.form['edit_comment']
+            print('request: ', comment)
             edit_comment(id, user, comment)
-            print('edited comment: ', get_comment(id, user))
+            # print('edited comment: ', get_comment(id, user))
         if request.form.get('favorite'):
             fav = request.form.get('favorite')
             print("\n\nfav:", fav)
@@ -98,7 +99,7 @@ def view(id):
                 print('add')
                 add_favorite(id, user)
         else:
-            print("rem_2")
+            # print("rem_2")
             delete_favorite(id, user)
 
     # Access info
