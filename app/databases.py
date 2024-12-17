@@ -251,10 +251,11 @@ def get_nearest(info):
 
 def get_favorites(user):
     ids = get_favorites_id(user) 
-    # print(ids)
-    ids_string = ','.join(ids[0])
+    print(ids)
+    ids_string = ','.join(ids)
+    print(ids_string)
     sql="select * from recipes where id IN (" + ids_string + ")"
-    print(sql)
+    # print(sql)
     try:
         with sqlite3.connect('api_info.db') as conn:
             cursor = conn.cursor()
@@ -268,7 +269,10 @@ def get_favorites_id(user):
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
             result = cursor.execute("SELECT recipe_id FROM favorite_recipes WHERE username = ?", (user,)).fetchall()
-            return result
+            li = []
+            for i in result:
+                li.append(i[0])
+            return li
     except sqlite3.IntegrityError:
         print('Database Error')
 
