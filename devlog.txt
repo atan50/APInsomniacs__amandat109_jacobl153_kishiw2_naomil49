@@ -214,3 +214,9 @@ amandaT -- 2024-12-17 03:50
   * Now routes to catalog
 * Updated requirements.txt
   * No longer causes errors
+
+amandaT, jacobL -- 2024-12-17 06:11
+* Removed extra tags
+* Rejoined favorites and comments form
+  * Saving comments does not reset favorite status
+* Created dummy users for demoing
