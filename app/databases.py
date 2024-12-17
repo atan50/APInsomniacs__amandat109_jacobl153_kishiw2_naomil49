@@ -78,7 +78,6 @@ def init_db():
                 table_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
                 recipe_id TEXT NOT NULL,
-                deleted TEXT
             )
         ''')
         cursor.execute('''
@@ -87,7 +86,6 @@ def init_db():
                 username TEXT NOT NULL,
                 recipe_id TEXT NOT NULL,
                 comment TEXT NOT NULL,
-                deleted TEXT
             )
         ''')
         conn.commit()
@@ -348,12 +346,12 @@ def add_comment(id, user, comment):
     except sqlite3.IntegrityError:
         print('Database Error')
 
-def edit_comment(id, user, new_comment):
+def edit_comment(id, user, comment):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
             cursor.execute('UPDATE recipe_comments SET comment = ? WHERE recipe_id = ? AND username = ?',
-                           (comment, user, id))
+                           (comment, id, user))
             conn.commit()
     except sqlite3.IntegrityError:
         print('Database Error')
