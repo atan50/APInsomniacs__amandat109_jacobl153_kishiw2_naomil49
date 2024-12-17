@@ -47,18 +47,19 @@
 
     <!-- Favorite + Comment form -->
         <div id="favorite">
-        <form action="/catalog/{{ id }}", method="POST">
-            <!-- <input type="hidden" name="favorite" value="false"> -->
+            <form action="/catalog/{{ id }}", method="POST">
+                <!-- <input type="hidden" name="favorite" value="false"> -->
 
-            <div id="check">
-            Check here to favorite!
-            <input type="checkbox" name="favorite" value="true" {% if favorite  == "true" %} checked {% endif %}><br>
-            </div>
-            <input id="update" type="submit" value="Update preferences">
-
+                <div id="check">
+                Check here to favorite!
+                <input type="checkbox" name="favorite" value="true" {% if favorite  == "true" %} checked {% endif %}><br>
+                </div>
+                <input id="update" type="submit" value="Update preferences">
+            </form>
             <br>
         </div>
         <div id="comm">
+            <form action="/catalog/{{ id }}", method="POST">
             {% if comment %}
                 Here's the comment you left!
                 <br>
@@ -76,6 +77,7 @@
                     <!-- <button type="submit"> Submit</button> -->
                 <!-- </form> -->
             {% endif %}
+            </form>
             </div>
         </form>
 
