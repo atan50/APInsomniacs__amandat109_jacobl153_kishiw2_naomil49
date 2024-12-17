@@ -198,3 +198,10 @@ amandaT -- 2024-12-17 01:19
   * Component map
   * Brief descriptions
 * Commented out print statements in __init__.py
+
+naomiL -- 2024-12-17 02:41
+* Separated forms in recipe html for favorites and comments
+  * Worked on windows but not Macbook previously
+
+naomiL -- 2024-12-17 02:58
+* Created routing from individual recipe to recipe catalog
