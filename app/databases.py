@@ -212,7 +212,7 @@ def delete_favorite(id, user):
     try:
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
-            cursor.execute("DELETE FROM favorite_recipes WHERE table_id = ? AND username = ?;", (id, user))
+            cursor.execute("DELETE FROM favorite_recipes WHERE recipe_id = ? AND username = ?;", (id, user))
             # for i in range(1, favorite_rows()+1):
             #     results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
             #     temp_user = results[1]
@@ -229,6 +229,7 @@ def check_favorite(id, user):
         with sqlite3.connect('user_info.db') as conn:
             cursor = conn.cursor()
             result = cursor.execute("SELECT * FROM favorite_recipes WHERE recipe_id = ? AND username = ?;", (id, user)).fetchone()
+            # print(result)
             if result:
                 return True
             # for i in range(1, favorite_rows()+1):
@@ -240,6 +241,15 @@ def check_favorite(id, user):
             return False
     except sqlite3.IntegrityError:
         print('Database Error')
+
+def get_all_favorites():
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            result = cursor.execute("SELECT * FROM favorite_recipes").fetchall()
+            return result
+    except sqlite3.IntegrityError:
+        print('Database error')
 
 #return recipe_comments row length
 def comment_rows():

@@ -8,13 +8,14 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites, get_nearest
+from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites, get_nearest, get_all_favorites
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
 # print('\n\nget_recipes():', get_recipes())
 # print('\n\nget_news():', get_news())
 # print('\n\nget_breweries():', get_breweries())
+# print("\n\nget_all_favorites:",get_all_favorites())
 
 # Secret key/setup
 app = Flask(__name__)
@@ -23,6 +24,7 @@ app.secret_key = os.urandom(32)
 # Homepage
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    print("\n\nget_all_favorites:",get_all_favorites())
     if 'username' not in session:
         return render_template('home.html')
     return render_template('home.html', username = session['username'])
@@ -66,6 +68,7 @@ def news():
 # Catalog page
 @app.route('/catalog')
 def catalog():
+    print("\n\nget_all_favorites:",get_all_favorites())
     recipes = get_recipes()
     return render_template('catalog.html', recipes = recipes)
 
@@ -73,19 +76,20 @@ def catalog():
 @app.route('/catalog/<id>', methods=['GET', 'POST'])
 def view(id):
     user = session.get('username')
-    delete_favorite(id, user)
 
     # Handle info
     if request.method == 'POST':
         if request.form.get('comment'):
             comment = request.form.get('content')
             add_comment(id, comment)
-        if request.form.get('fav'):
-            fav = request.form.get('fav')
-            print("\n\nform favorite:", fav)
-            if fav == 'Unfavorite':
+        if request.form.get('favorite'):
+            fav = request.form.get('favorite')
+            print("\n\nfav:", fav)
+            if fav == 'false':
+                print('rem')
                 delete_favorite(id, user)
-            if fav == 'Favorite':
+            if fav == 'true':
+                print('add')
                 add_favorite(id, user)            
     
     # Access info
@@ -97,7 +101,9 @@ def view(id):
     name = info[3]
     image = info[4]
     favorite = check_favorite(id,user)
-    print("\n\n:favorite", favorite)
+    # print("\n\nfavorite:", favorite)
+    print("\nget_all_favorites:",get_all_favorites())
+    # print("\nfavorite:", favorite)
     if(len(info)>5):
         comment = info[5]
         return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite, comment=comment)
