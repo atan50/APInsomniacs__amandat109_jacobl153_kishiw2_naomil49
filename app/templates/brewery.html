@@ -2,7 +2,7 @@
 <html>
 
  <script>
-    const x = document.getElementById("demo");
+    const x = document.getElementById("doxx");
 
     function getLocation() {
         if (navigator.geolocation) {
@@ -26,38 +26,39 @@
     <title>Breweries</title>
 </head>
 <body>
-    <!-- 
+    <!--
         breweries: list of all breweries
         nearest: info of the nearest brewery
     -->
     <div id=top>
         <form action="/">
-            <input id = home type="submit" name="return" value="Home">
+            <input id=home type="submit" name="return" value="Home">
         </form>
         <h1 id=title>Breweries</h1>
     </div>
 
     {% if breweries %}
-        <div id = breweries>
-            {% for brewery in breweries %}
-                <li>
-                    <div id = individual>
-                    {{ brewery[1] }} <br>
-                    Longitude: {{brewery[2]}} <br>
-                    Latitude: {{brewery[3]}}
-                    </div>
-                </li>
-            {% endfor %}
-        </div>
+    <p id= "doxx"></p>
+    <div id=breweries>
+        {% for brewery in breweries %}
+        <li>
+            <div id=individual>
+                {{ brewery[1] }} <br>
+                Longitude: {{brewery[2]}} <br>
+                Latitude: {{brewery[3]}}
+            </div>
+        </li>
+        {% endfor %}
+    </div>
     {% else %}
-        <div id=geolocation>
-            <button id=location onClick="getLocation()"> Allow us to access your Location </button>
-            <form action="/brewery" , method="POST">
-                <button id= location"> Refresh Page! </button>
-            </form>
-        </div>
+    <div id=geolocation>
+        <button id=location onClick="getLocation()"> Allow us to access your Location </button>
+        <form action="/brewery" , method="POST">
+            <button> Refresh Page! </button>
+        </form>
+    </div>
     {% endif %}
-    
+
 
     <footer> You are currently logged in as {{ session['username'] }} </footer>
 </body>
