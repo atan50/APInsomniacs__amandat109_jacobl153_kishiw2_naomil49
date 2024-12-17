@@ -205,3 +205,10 @@ naomiL -- 2024-12-17 02:41
 
 naomiL -- 2024-12-17 02:58
 * Created routing from individual recipe to recipe catalog
+
+amandaT -- 2024-12-17 03:44
+* Updated headings in python files
+* Linked comment forms to css id
+* Fixed catalog button routing from recipe
+  * Previously rerouted to current page
+  * Now routes to catalog
