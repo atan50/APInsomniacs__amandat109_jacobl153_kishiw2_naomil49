@@ -42,12 +42,18 @@
             <input type="submit" value="Update preferences">
             <br>
             {% if comment %}
-                {{ comment }}
+                Here's the comment you left!
+                <br>
+                <textarea id="edit_comment" name="edit_comment" rows="4" cols="50">{{comment}}</textarea>
+                <br>
+                <input type="submit" value="Save">
             {% else %}
                 <!-- <form action="/catalog/{{ id }}" , method="POST"> -->
                     You have not left a comment. You can leave a comment here!
                     <br>
-                    <textarea id="editing" name="comment" rows="4" cols="50"></textarea>
+                    <textarea id="new_comment" name="new_comment" rows="4" cols="50"></textarea>
+                    <br>
+                    <input type="submit" value="Save">
                     <br>
                     <!-- <button type="submit"> Submit</button> -->
                 <!-- </form> -->

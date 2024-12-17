@@ -249,7 +249,7 @@ def get_nearest(info):
     return 1
 
 def get_favorites(user):
-    ids = get_favorites_id(user) 
+    ids = get_favorites_id(user)
     print(ids)
     ids_string = ','.join(ids)
     print(ids_string)
@@ -348,6 +348,36 @@ def add_comment(id, user, comment):
     except sqlite3.IntegrityError:
         print('Database Error')
 
+def edit_comment(id, user, new_comment):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('UPDATE recipe_comments SET comment = ? WHERE recipe_id = ? AND username = ?',
+                           (comment, user, id))
+            conn.commit()
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+def get_comment(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            result = cursor.execute("SELECT * FROM recipe_comments WHERE recipe_id = ? AND username = ?;", (id, user)).fetchone()
+            return result[3]
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
+def check_comment(id, user):
+    try:
+        with sqlite3.connect('user_info.db') as conn:
+            cursor = conn.cursor()
+            result = cursor.execute("SELECT * FROM recipe_comments WHERE recipe_id = ? AND username = ?;", (id, user)).fetchone()
+            if result:
+                return True
+            return  False
+    except sqlite3.IntegrityError:
+        print('Database Error')
+
 # checking contents of tables
 def make_ingredients_list(name):
     try:
@@ -359,4 +389,3 @@ def make_ingredients_list(name):
         	return ingred_list
     except sqlite3.IntegrityError:
     		print('Database Error')
-
