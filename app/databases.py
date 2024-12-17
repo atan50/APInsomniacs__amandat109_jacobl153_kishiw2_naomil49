@@ -77,7 +77,7 @@ def init_db():
             CREATE TABLE IF NOT EXISTS favorite_recipes (
                 table_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
-                recipe_id TEXT NOT NULL,
+                recipe_id TEXT NOT NULL
             )
         ''')
         cursor.execute('''
@@ -85,7 +85,7 @@ def init_db():
                 table_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT NOT NULL,
                 recipe_id TEXT NOT NULL,
-                comment TEXT NOT NULL,
+                comment TEXT NOT NULL
             )
         ''')
         conn.commit()

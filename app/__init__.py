@@ -24,7 +24,7 @@ app.secret_key = os.urandom(32)
 # Homepage
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    print("\n\nget_all_favorites:",get_all_favorites())
+    #print("\n\nget_all_favorites:",get_all_favorites())
     if 'username' not in session:
         return render_template('home.html')
     return render_template('home.html', username = session['username'])
@@ -69,7 +69,7 @@ def news():
 # Catalog page
 @app.route('/catalog')
 def catalog():
-    print("\n\nget_all_favorites:",get_all_favorites())
+    #print("\n\nget_all_favorites:",get_all_favorites())
     recipes = get_recipes()
     return render_template('catalog.html', recipes = recipes)
 
@@ -86,7 +86,7 @@ def view(id):
             # print('new comment: ', get_comment(id, user))
         if request.form.get('edit_comment'):    # # references form for when comment is being edited
             comment = request.form['edit_comment']
-            print('request: ', comment)
+            # print('request: ', comment)
             edit_comment(id, user, comment)
             # print('edited comment: ', get_comment(id, user))
         if request.form.get('favorite'):
