@@ -20,9 +20,9 @@
         {% if username %}
         <div id="name">
             Hello, {{ username }} !
-            <a id ="link" href="{{ url_for('logout') }}">Log out</a><br>
+            <a id="link" href="{{ url_for('logout') }}">Log out</a><br>
             Visit your
-            <a id ="link" href="{{ url_for('profile') }}"> Profile</a>
+            <a id="link" href="{{ url_for('profile') }}"> Profile</a>
         </div>
         {% else %}
         <div id="buttons">
@@ -32,6 +32,14 @@
         {% endif %}
 
         <h1 id="title">Somni Bites</h1>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p id="flashes">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
 
     </div>
 
@@ -48,13 +56,6 @@
     </div>
 
     <div id="brew">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <p id="flashes">{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
 
         Visit the
         <a id=link href="{{ url_for('brewery') }}"> Brewery</a>

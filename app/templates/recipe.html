@@ -49,16 +49,13 @@
         <div id="favorite">
         <form action="/catalog/{{ id }}", method="POST">
             <!-- <input type="hidden" name="favorite" value="false"> -->
-<<<<<<< HEAD
+
             <div id="check">
             Check here to favorite!
             <input type="checkbox" name="favorite" value="true" {% if favorite  == "true" %} checked {% endif %}><br>
             </div>
             <input id="update" type="submit" value="Update preferences">
-=======
-            <input type="checkbox" name="favorite" value="true" {% if favorite == "true" %} checked {% endif %}><br>
-            <input type="submit" value="Update preferences"
->>>>>>> e7e36a55156a4ef5cb43956a36bf9372eca78015
+
             <br>
         </div>
         <div id="comm">
