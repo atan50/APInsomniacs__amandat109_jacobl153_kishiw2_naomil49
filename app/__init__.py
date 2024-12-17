@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_nearest, get_all_favorites, make_ingredients_list
+from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_nearest, get_all_favorites, make_ingredients_list, get_favorites
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
