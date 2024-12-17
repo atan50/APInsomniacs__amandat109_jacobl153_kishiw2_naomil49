@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites, get_nearest, get_all_favorites
+from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites, get_nearest, get_all_favorites, make_ingredients_list
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -99,7 +99,7 @@ def view(id):
     info = get_recipe_content(id)
     # print("info: ",info)
     id = info[0]
-    ingredients = databases.make_ingredients_list(info[3])
+    ingredients = make_ingredients_list(info[3])
     steps = info[2]
     name = info[3]
     image = info[4]

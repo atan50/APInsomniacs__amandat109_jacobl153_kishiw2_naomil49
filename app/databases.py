@@ -276,16 +276,16 @@ def add_comment(id, user, comment):
         print('Database Error')
 
 # checking contents of tables
-# def make_ingredients_list(name):
-#     try:
-#         with sqlite3.connect('api_info.db') as conn:
-#         	cursor = conn.cursor()
-#         	cursor.execute("SELECT ingredients FROM recipes where name = ?", (name,))
-#         	ingredients = str(cursor.fetchall())[3:-4]
-#         	ingred_list = ingredients.split(" + ")
-#         	return ingred_list
-#     except sqlite3.IntegrityError:
-#     		print('Database Error')
+def make_ingredients_list(name):
+    try:
+        with sqlite3.connect('api_info.db') as conn:
+        	cursor = conn.cursor()
+        	cursor.execute("SELECT ingredients FROM recipes where name = ?", (name,))
+        	ingredients = str(cursor.fetchall())[3:-4]
+        	ingred_list = ingredients.split(" + ")
+        	return ingred_list
+    except sqlite3.IntegrityError:
+    		print('Database Error')
 
 
 def print_table():
