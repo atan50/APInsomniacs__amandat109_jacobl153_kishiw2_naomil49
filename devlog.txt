@@ -129,6 +129,12 @@ naomiL -- 2024-12-13 13:14
 * Adjusted variables (?) passed into templates for recipe/catalog
 * Catalog subpath for individual recipe works!
 
+naomiL -- 2024-12-14 11:47
+* Added temporary commenting template in html
+
+kishiW -- 2024-12-14 15:34
+* Finished catalog css
+
 amandaT -- 2024-12-15 14:44
 * Created database tables for favorite_recipes and recipe_comments
 * Created functions for favoriting recipes:
@@ -148,3 +154,12 @@ amandaT -- 2024-12-15 16:21
 
 kishiW -- 2024-12-15 23:51
 * updated lots of html and css
+
+amandaT, jacobL, kishiW, naomiL -- 2024-12-16 10:59
+* removed articles with short blurbs from database
+* reworked routing:
+  * favoriting condensed in /catalog/<id>
+* reworked html linked to favoriting
+* connecting longitude and latitude to breweries
+* revising breweries html
+* converting recipes ingredients to list form for html input

@@ -1,22 +1,7 @@
 <!DOCTYPE html>
 <html>
 
- <script>
-    const x = document.getElementById("demo");
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-
-    function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
-    }
-</script> 
 
 <head>
     <link rel="stylesheet" href="/static/css/brewery.css">
@@ -26,37 +11,55 @@
     <title>Breweries</title>
 </head>
 <body>
-    <!-- 
+    <!--
         breweries: list of all breweries
         nearest: info of the nearest brewery
     -->
+
     <div id=top>
         <form action="/">
-            <input id = home type="submit" name="return" value="Home">
+            <input id=home type="submit" name="return" value="Home">
         </form>
         <h1 id=title>Breweries</h1>
     </div>
 
-    {% if breweries %}
-        <div id = breweries>
-            {% for brewery in breweries %}
-                <li>
-                    <div id = individual>
-                    {{ brewery[1] }} <br>
-                    Longitude: {{brewery[2]}} <br>
-                    Latitude: {{brewery[3]}}
-                    </div>
-                </li>
-            {% endfor %}
+    <div id=breweries>
+        <div id=geolocation>
+            <div id="individual">
+                <button id=location onClick="getLocation()"> Allow us to access your Location </button>
+                <p>YOUR COORDINATES:</p>
+                <p id="demo"></p>
+            </div>
+
+            <script>
+                const x = document.getElementById("demo");
+
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    } else {
+                        x.innerHTML = "Geolocation is not supported by this browser.";
+                    }
+                }
+
+                function showPosition(position) {
+                    x.innerHTML = "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+                }
+            </script>
+
+
         </div>
-    {% else %}
-    <div id = geolocation>
-        <form action="/brewery", method="POST">
-            <button id= location onClick="getLocation()"> Allow us to access your Location </button>
-        </form>
+
+        {% for brewery in breweries %}
+        <div id=individual>
+            {{ brewery[1] }} <br>
+            Longitude: {{brewery[2]}} <br>
+            Latitude: {{brewery[3]}}
+        </div>
+        {% endfor %}
     </div>
-    {% endif %}
-    
+
 
     <footer> You are currently logged in as {{ session['username'] }} </footer>
 </body>

@@ -37,7 +37,7 @@ def getArticles():
         for (url, lead_par, headline) in zip(urls, lead_pars, headlines):
             # print("\n\n",lead_par,headline, '.' in lead_par)
             par_len = (len(lead_par))
-            if(par_len > 0 and '.' not in lead_par):
+            if(par_len >= 0 and '.' not in lead_par):
                 continue
             info_list.append([url, lead_par, headline])
         return (info_list)
