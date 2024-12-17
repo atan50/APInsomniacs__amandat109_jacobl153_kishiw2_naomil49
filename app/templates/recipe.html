@@ -38,7 +38,7 @@
 
         <form action="/catalog/{{ id }}", method="POST">
             <!-- <input type="hidden" name="favorite" value="false"> -->
-            <input type="checkbox" name="favorite" value="true" {% if favorite  == "true" %} checked {% endif %}>
+            <input type="checkbox" name="favorite" value="true" {% if favorite  == "true" %} checked {% endif %}><br>
             {% if comment %}
                 {{ comment }}
             {% else %}
@@ -51,6 +51,8 @@
             {% endif %}
             <input type="submit" value="Update preferences">
         </form>
+
+        <br><br><br>
 
             <footer> You are currently logged in as {{ session['username'] }} </footer>
 

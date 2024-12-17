@@ -54,7 +54,8 @@ def profile():
     if 'username' in session:
         user = session['username']
         info = get_favorites(user)
-        return render_template('profile.html', username = session['username'])
+        # recipes = get_recipes()
+        return render_template('profile.html', username = session['username'], info = info)
     return redirect('/')
 
 # General routing
@@ -103,7 +104,11 @@ def view(id):
     steps = info[2]
     name = info[3]
     image = info[4]
-    favorite = check_favorite(id,user)
+    fav = check_favorite(id,user)
+    if fav:
+        favorite = 'true'
+    else:
+        favorite = 'false'
     # print("\n\nfavorite:", favorite)
     print("\nget_all_favorites:",get_all_favorites())
     # print("\nfavorite:", favorite)
@@ -111,18 +116,6 @@ def view(id):
         comment = info[5]
         return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite, comment=comment)
     return render_template('recipe.html', id=id, ingredients = ingredients, steps = steps, name = name, image=image, favorite = favorite)
-
-# @app.route('/favorite_item/<id>', methods=['GET', 'POST'])
-# def favorite_item(id):
-#     user = session.get('username')
-#     add_favorite(id, user)
-#     return redirect("/catalog/id")
-#
-# @app.route('/unfavorite_item/<id>', methods=['GET', 'POST'])
-# def unfavorite_item(id):
-#     user = session.get('username')
-#     add_favorite(id, user)
-#     return redirect("/catalog/id")
 
 # Brewery route
 @app.route('/brewery', methods = ['GET', 'POST'])
