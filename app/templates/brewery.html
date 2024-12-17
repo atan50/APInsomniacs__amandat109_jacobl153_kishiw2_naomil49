@@ -50,11 +50,12 @@
             {% endfor %}
         </div>
     {% else %}
-    <div id = geolocation>
-        <form action="/brewery", method="POST">
-            <button id= location onClick="getLocation()"> Allow us to access your Location </button>
-        </form>
-    </div>
+        <div id=geolocation>
+            <button id=location onClick="getLocation()"> Allow us to access your Location </button>
+            <form action="/brewery" , method="POST">
+                <button id= location"> Refresh Page! </button>
+            </form>
+        </div>
     {% endif %}
     
 
