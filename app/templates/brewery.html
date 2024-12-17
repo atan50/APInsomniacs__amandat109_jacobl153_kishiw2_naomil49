@@ -1,22 +1,7 @@
 <!DOCTYPE html>
 <html>
 
- <script>
-    const x = document.getElementById("doxx");
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-        x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-    }
-
-    function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude;
-    }
-</script> 
 
 <head>
     <link rel="stylesheet" href="/static/css/brewery.css">
@@ -30,6 +15,7 @@
         breweries: list of all breweries
         nearest: info of the nearest brewery
     -->
+
     <div id=top>
         <form action="/">
             <input id=home type="submit" name="return" value="Home">
@@ -37,27 +23,42 @@
         <h1 id=title>Breweries</h1>
     </div>
 
-    {% if breweries %}
-    <p id= "doxx"></p>
     <div id=breweries>
-        {% for brewery in breweries %}
-        <li>
-            <div id=individual>
-                {{ brewery[1] }} <br>
-                Longitude: {{brewery[2]}} <br>
-                Latitude: {{brewery[3]}}
+        <div id=geolocation>
+            <div id="individual">
+                <button id=location onClick="getLocation()"> Allow us to access your Location </button>
+                <p>YOUR COORDINATES:</p>
+                <p id="demo"></p>
             </div>
-        </li>
+
+            <script>
+                const x = document.getElementById("demo");
+
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    } else {
+                        x.innerHTML = "Geolocation is not supported by this browser.";
+                    }
+                }
+
+                function showPosition(position) {
+                    x.innerHTML = "Latitude: " + position.coords.latitude +
+                        "<br>Longitude: " + position.coords.longitude;
+                }
+            </script>
+
+
+        </div>
+
+        {% for brewery in breweries %}
+        <div id=individual>
+            {{ brewery[1] }} <br>
+            Longitude: {{brewery[2]}} <br>
+            Latitude: {{brewery[3]}}
+        </div>
         {% endfor %}
     </div>
-    {% else %}
-    <div id=geolocation>
-        <button id=location onClick="getLocation()"> Allow us to access your Location </button>
-        <form action="/brewery" , method="POST">
-            <button> Refresh Page! </button>
-        </form>
-    </div>
-    {% endif %}
 
 
     <footer> You are currently logged in as {{ session['username'] }} </footer>

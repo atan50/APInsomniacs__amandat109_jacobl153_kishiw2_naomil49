@@ -130,7 +130,7 @@ def brewery():
     if 'username' not in session:
         flash("You must be logged in!")
         return redirect('/')
-    if request.method == 'POST':
+    if request.method == 'GET':
         # print(2)
         info = get_breweries()
         nearest_id = get_nearest(info)
