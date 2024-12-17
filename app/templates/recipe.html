@@ -9,14 +9,14 @@
 </head>
 <body>
 
-<!--
-    name: {{ name }}<br>
-    ingredients: {{ ingredients }}
-    steps: {{ steps | safe }}
-    image: {{ image }}
-    comment: user-specific comments
+    <!--
+        name: {{ name }}<br>
+        ingredients: {{ ingredients }}
+        steps: {{ steps | safe }}
+        image: {{ image }}
+        comment: user-specific comments
 
--->
+    -->
 
     <div id="top">
         <form action="/">
@@ -26,15 +26,20 @@
         <h1 id="title">{{ name }}</h1>
     </div>
 
-    <div id = "ingredients">
-        <p>{{ ingredients }}</p>
+    <div id=individual>
+        <img id=pic src="{{ image }}"> <br>
+        {% for item in ingredients %}
+        <li> {{ item }} <br></li>
+        {% endfor %}
+        <br>
     </div>
 
-    </form>
+
+
     {% if session['username'] %}
 
-        <!-- Favorite + Comment form -->
-         favorite: {{ favorite }}
+    <!-- Favorite + Comment form -->
+    favorite: {{ favorite }}
 
         <form action="/catalog/{{ id }}", method="POST">
             <!-- <input type="hidden" name="favorite" value="false"> -->
@@ -60,14 +65,14 @@
             {% endif %}
         </form>
 
-        <br><br><br>
+    <br><br><br>
 
-            <footer> You are currently logged in as {{ session['username'] }} </footer>
+    <footer> You are currently logged in as {{ session['username'] }} </footer>
 
     {% else %}
     <footer>
         You are currently not logged in.
-        <a id ="login"href="{{ url_for('login') }}"> Log In?</a>
+        <a id="login" href="{{ url_for('login') }}"> Log In?</a>
     </footer>
 
     {% endif %}

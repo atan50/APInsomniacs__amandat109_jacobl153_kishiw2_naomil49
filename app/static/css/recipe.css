@@ -87,6 +87,21 @@ a {
 	color: rgb(223, 106, 106);
 }
 
+#individual {
+	background-color: #f5eeff;
+	text-align: center;
+	list-style-type: none;
+	margin: 0 auto;
+	margin-top: 2%;
+	display: block;
+	padding: 2%;
+	padding-bottom: 2%;
+	width: 50%;
+	height: 10%;
+	border-radius: 50px;
+	box-shadow: 8px 8px 16px rgba(201, 201, 201, 0.8);
+}
+
 footer{
   position: fixed;
   text-align: left;
@@ -101,4 +116,17 @@ footer{
   padding-left: 15px;
   font-weight: bold;
   color: #ffffff;
+}
+
+#pic {
+	margin: 0 auto;
+	margin-top: 2%;
+	display: block;
+	padding: 2%;
+	padding-bottom: 2%;
+	width: 80%;
+	height: 10%;
+	border-radius: 50px;
+	background-color: #ffffff;
+	box-shadow: 8px 8px 16px rgba(201, 201, 201, 0.8);
 }
