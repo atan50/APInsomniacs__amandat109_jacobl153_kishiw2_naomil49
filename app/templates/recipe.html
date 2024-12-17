@@ -33,62 +33,33 @@
     </form>
     {% if session['username'] %}
 
-        <!-- Favorite Button Start -->
+        <!-- Favorite + Comment form -->
          favorite: {{ favorite }}
 
-         <!-- {% if favorite == 'FALSE' %}
-            <form action="/catalog/{{ id }}", method="POST">
-                <input type="checkbox" name="favorite" value="add_fav">
-            </form>
-        {% else %}
-            <form action="/catalog/{{ id }}", method="POST">
-                <input type="checkbox" name="favorite" value="remove_fav">
-            </form>
-        {% endif %} -->
-
         <form action="/catalog/{{ id }}", method="POST">
-            <input type="hidden" name="favorite" value="false">
-            <input type="checkbox" name="favorite" value="true">
-            <!-- <input type="submit" value="Update preferences">
-        </form> -->
-
-        <!-- {% if favorite == 'FALSE'%}
-               
-            <form action="/catalog/{{ id }}", method="POST">
-                <input type="submit" name="fav" value="Unfavorite">
-            </form>
-        {% else %}
-            <form action="/catalog/{{ id }}", method="POST">
-                <input type="submit" name="fav" value="Favorite">
-        </form>
-        {% endif %} -->
-
-        <!-- Favorite Button End -->
-        {% if comment %}
-
-            {{ comment }}
-
+            <!-- <input type="hidden" name="favorite" value="false"> -->
+            <input type="checkbox" name="favorite" value="true" {% if favorite  == "true" %} checked {% endif %}>
+            {% if comment %}
+                {{ comment }}
             {% else %}
-                <form action="/catalog/{{ id }}" , method="POST">
+                <!-- <form action="/catalog/{{ id }}" , method="POST"> -->
                     You have not left a comment. You can leave a comment here!
                     <textarea id="editing" name="comment" rows="4" cols="50"></textarea>
                     <br>
                     <!-- <button type="submit"> Submit</button> -->
                 <!-- </form> -->
             {% endif %}
-
-                <footer> You are currently logged in as {{ session['username'] }} </footer>
-
-        {% else %}
-            <footer>
-                You are currently not logged in.
-                <a id ="login"href="{{ url_for('login') }}"> Log In?</a>
-            </footer>
-
-        {% endif %}
-        <input type="submit" value="Update preferences">
+            <input type="submit" value="Update preferences">
         </form>
 
+            <footer> You are currently logged in as {{ session['username'] }} </footer>
 
+    {% else %}
+    <footer>
+        You are currently not logged in.
+        <a id ="login"href="{{ url_for('login') }}"> Log In?</a>
+    </footer>
+
+    {% endif %}
 </body>
 </html>

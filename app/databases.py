@@ -231,14 +231,14 @@ def check_favorite(id, user):
             result = cursor.execute("SELECT * FROM favorite_recipes WHERE recipe_id = ? AND username = ?;", (id, user)).fetchone()
             # print(result)
             if result:
-                return True
+                return 'true'
             # for i in range(1, favorite_rows()+1):
             #     results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
             #     temp_user = results[1]
             #     temp_recipe = results[2]
             #     if(temp_user == user and temp_recipe == id):
             #         return True
-            return False
+            return 'false'
     except sqlite3.IntegrityError:
         print('Database Error')
 

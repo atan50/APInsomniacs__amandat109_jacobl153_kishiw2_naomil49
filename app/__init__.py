@@ -90,7 +90,10 @@ def view(id):
                 delete_favorite(id, user)
             if fav == 'true':
                 print('add')
-                add_favorite(id, user)            
+                add_favorite(id, user)  
+        else:
+            print("rem_2")
+            delete_favorite(id, user)          
     
     # Access info
     info = get_recipe_content(id)
