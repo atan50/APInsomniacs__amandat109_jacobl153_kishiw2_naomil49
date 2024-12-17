@@ -164,6 +164,37 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-16 10:59
 * revising breweries html
 * converting recipes ingredients to list form for html input
 
+jacobL, kishiW -- 2024-12-16 21:14
+* Changing ingredients to list (separating)
+* Working on Geolocation API
+* Updating CSS
+
+amandaT -- 2024-12-16 21:35
+* Commented out some unused functions
+* Structuring in databases
+  * Removed unused columns
+
 naomiL -- 2024-12-16 21:50
 * fixed favoriting (add, remove favorites + related html/routing)
 * fixed profile to show favorites (get_favorites)
+
+amandaT, kishiW, naomiL -- 2024-12-17 00:24
+* Removed excess spacing
+* Added commenting functions (editing, checking)
+* Created form requests for commenting
+  * Connecting python file with HTML
+* Finalizing styling
+  * Profile
+    * Favorite recipes
+  * Catalog items (Recipes)
+    * Favoriting
+    * Commenting
+* Resolved many merge conflicts in the progress
+
+amandaT -- 2024-12-17 01:19
+* Updated design doc
+  * Database structure matches app
+  * Site map
+  * Component map
+  * Brief descriptions
+* Commented out print statements in __init__.py
