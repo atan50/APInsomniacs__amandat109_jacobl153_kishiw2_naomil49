@@ -8,7 +8,7 @@
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 import os
-from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_favorites, get_nearest, get_all_favorites, make_ingredients_list
+from databases import login_user, init_db, create_user, logout_user, add_favorite, delete_favorite, check_favorite, get_recipes, get_news, get_recipe_content, get_breweries, get_nearest, get_all_favorites, make_ingredients_list
 # from database import create_user, login_user, logout_user, create_story, create_edit, get_stories, can_add_to_story, add_to_story, get_contributors
 
 init_db()
@@ -90,11 +90,11 @@ def view(id):
                 delete_favorite(id, user)
             if fav == 'true':
                 print('add')
-                add_favorite(id, user)  
+                add_favorite(id, user)
         else:
             print("rem_2")
-            delete_favorite(id, user)          
-    
+            delete_favorite(id, user)
+
     # Access info
     info = get_recipe_content(id)
     # print("info: ",info)

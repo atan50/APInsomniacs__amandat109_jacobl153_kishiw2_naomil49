@@ -183,18 +183,20 @@ def logout_user():
     session.pop('username',)
     return redirect('/')
 
+# --Unused code start--
 #return favorite_recipes row length
-def favorite_rows():
-    try:
-        with sqlite3.connect('user_info.db') as conn:
-            cursor = conn.cursor()
-            query = "SELECT COUNT(1) FROM favorite_recipes"
-            cursor.execute(query)
-            result = cursor.fetchone()
-            row_count = result[0]
-            return row_count
-    except sqlite3.IntegrityError:
-        print('Database Error')
+# def favorite_rows():
+#     try:
+#         with sqlite3.connect('user_info.db') as conn:
+#             cursor = conn.cursor()
+#             query = "SELECT COUNT(1) FROM favorite_recipes"
+#             cursor.execute(query)
+#             result = cursor.fetchone()
+#             row_count = result[0]
+#             return row_count
+#     except sqlite3.IntegrityError:
+#         print('Database Error')
+# --Unused code end--
 
 # adding recipe to favorite_recipes database
 def add_favorite(id, user):
@@ -251,18 +253,20 @@ def get_all_favorites():
     except sqlite3.IntegrityError:
         print('Database error')
 
+# --Unused code start--
 #return recipe_comments row length
-def comment_rows():
-    try:
-        with sqlite3.connect('user_info.db') as conn:
-            cursor = conn.cursor()
-            query = "SELECT COUNT(1) FROM recipe_comments"
-            cursor.execute(query)
-            result = cursor.fetchone()
-            row_count = result[0]
-            return row_count
-    except sqlite3.IntegrityError:
-        print('Database Error')
+# def comment_rows():
+#     try:
+#         with sqlite3.connect('user_info.db') as conn:
+#             cursor = conn.cursor()
+#             query = "SELECT COUNT(1) FROM recipe_comments"
+#             cursor.execute(query)
+#             result = cursor.fetchone()
+#             row_count = result[0]
+#             return row_count
+#     except sqlite3.IntegrityError:
+#         print('Database Error')
+# --Unused code end--
 
 #adds comments
 def add_comment(id, user, comment):
@@ -342,23 +346,25 @@ def get_nearest(info):
     return 1
 
 # showing recipes on favorites/profile page
-def get_favorites(user):
-    try:
-        with sqlite3.connect('user_info.db') as conn:
-            cursor = conn.cursor()
-            data = []
-            for i in range(1, favorite_rows()+1):
-                results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
-                if(results[3] == NULL):
-                    temp_id = results[2]
-                    conn.close()
-                    with sqlite3.connect('api_info.db') as conn:
-                        cursor = conn.cursor()
-                        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (temp_id)).fetchone()
-                        data.append(result)
-            # Function not finished: add access favorites column, which does not exist yet
-
-            # print("get_user_favorites():\n",result)
-            return result
-    except sqlite3.IntegrityError:
-        print('Database Error')
+# --Unused code start--
+# def get_favorites(user):
+#     try:
+#         with sqlite3.connect('user_info.db') as conn:
+#             cursor = conn.cursor()
+#             data = []
+#             for i in range(1, favorite_rows()+1):
+#                 results = cursor.execute("SELECT * FROM favorite_recipes WHERE table_id = ?", (i)).fetchone()
+#                 if(results[3] == NULL):
+#                     temp_id = results[2]
+#                     conn.close()
+#                     with sqlite3.connect('api_info.db') as conn:
+#                         cursor = conn.cursor()
+#                         result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (temp_id)).fetchone()
+#                         data.append(result)
+#             # Function not finished: add access favorites column, which does not exist yet
+#
+#             # print("get_user_favorites():\n",result)
+#             return result
+#     except sqlite3.IntegrityError:
+#         print('Database Error')
+# --Unused code end--
