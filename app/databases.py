@@ -50,7 +50,7 @@ def setup_recipes_table():
                 while(total_recipes > 0):
                     info = API.getRecipes()
                     ingredients = info[1]
-                    content = info[2]
+                    content = info[2].replace('</p>', "").replace('<p>', "").replace('</ol>', "").replace('</li>', "").replace('<ol>', "").replace('<li>', "")
                     name = info[0]
                     image = info[3]
                     cursor.execute('INSERT INTO recipes (ingredients, content, name, image) VALUES (?, ?, ?, ?)', (ingredients, content, name, image))
@@ -223,7 +223,7 @@ def get_news():
 def get_recipe_content(id):
     with sqlite3.connect('api_info.db') as conn:
         cursor = conn.cursor()
-        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (id,)).fetchone()
+        result = cursor.execute("SELECT * FROM recipes WHERE id = ?", (id,)).fetchone() 
         if not result:
             # flash("No recipe found")
             print("no recipe")
