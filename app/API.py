@@ -1,3 +1,9 @@
+# Amanda Tan, Jacob Lukose, Naomi Lai, Kishi Wijaya
+# APInsomniacs
+# SoftDev
+# P01: ArRESTed Development
+# 2024-12-17
+
 # import requests
 import json, random, requests, urllib.request
 from urllib.request import Request, urlopen

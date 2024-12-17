@@ -2,8 +2,7 @@
 # APInsomniacs
 # SoftDev
 # P01: ArRESTed Development
-# 2024-12-04
-# Time spent: ___
+# 2024-12-17
 
 # Imports
 from flask import Flask, request, render_template, redirect, url_for, flash, session
