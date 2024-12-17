@@ -2,22 +2,33 @@
 <html>
 <head>
     <link rel="stylesheet" href="static/css/register.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <title>Register</title>
 </head>
 <body>
-    <div id="background">
 
-        <form action="/login">
-            <input type="submit" id="return" name="return" value=&times;>
+    <div id=top>
+        <form action="/">
+            <input id=home type="submit" name="return" value="Home">
         </form>
+        <h1 id=title>Register</h1>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-        <h1>Register</h1>
+    <div id="background">
 
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-            {% for message in messages %}
-              <p class="flashes">{{ message }}</p>
-            {% endfor %}
+        {% for message in messages %}
+        <p class="flashes">{{ message }}</p>
+        {% endfor %}
         {% endif %}
         {% endwith %}
 

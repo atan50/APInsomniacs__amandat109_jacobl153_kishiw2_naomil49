@@ -4,18 +4,30 @@
     <link rel="stylesheet" href="static/css/login.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
+    <div id=top>
+        <form action="/">
+            <input id=home type="submit" name="return" value="Home">
+        </form>
+        <h1 id=title>Login</h1>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
     <div id="background">
-        <h1>Login</h1>
+        <br />
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            {% for category, message in messages %}
-              <p class="{{ category }}">{{ message }}</p>
-            {% endfor %}
+        {% for category, message in messages %}
+        <p id="{{ category }}">{{ message }}</p>
+        {% endfor %}
         {% endif %}
         {% endwith %}
 

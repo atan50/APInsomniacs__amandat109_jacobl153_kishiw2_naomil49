@@ -162,3 +162,7 @@ body {
 	color: white;
 	scale: 105%;
 }
+
+#flashes{
+	color:red;
+}

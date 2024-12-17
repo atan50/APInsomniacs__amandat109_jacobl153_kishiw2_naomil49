@@ -49,9 +49,17 @@
     </div>
 
     <div id="brew">
-            Visit the
-            <a id=link href="{{ url_for('brewery') }}"> Brewery</a>
-            to find breweries near you!
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p id="flashes">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        Visit the
+        <a id=link href="{{ url_for('brewery') }}"> Brewery</a>
+        to find breweries near you!
     </div>
 
 </body>
