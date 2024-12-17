@@ -99,7 +99,7 @@ def view(id):
     info = get_recipe_content(id)
     # print("info: ",info)
     id = info[0]
-    ingredients = info[1]
+    ingredients = databases.make_ingredients_list(info[3])
     steps = info[2]
     name = info[3]
     image = info[4]
