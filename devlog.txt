@@ -163,3 +163,7 @@ amandaT, jacobL, kishiW, naomiL -- 2024-12-16 10:59
 * connecting longitude and latitude to breweries
 * revising breweries html
 * converting recipes ingredients to list form for html input
+
+naomiL -- 2024-12-16 21:50
+* fixed favoriting (add, remove favorites + related html/routing)
+* fixed profile to show favorites (get_favorites)

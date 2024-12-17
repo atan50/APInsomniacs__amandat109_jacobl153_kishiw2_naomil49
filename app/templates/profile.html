@@ -3,7 +3,8 @@
 
 <!-- 
 username: user in session
-recipes: list of favorited recipes
+info: list of favorited recipes
+sub: [ingredients, content, name, img]
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,25 +23,22 @@ recipes: list of favorited recipes
 
 <body>
     <div id="background">
-
         {% if username %}
             <h1 id="title"> {{username}}'s Profile </h1>
-
             <div class="temp login">
                 <br>
-                Favorited Blogs:
-                {% if stories %}
-                    <ul>
-                    {% for story in stories %}
-                        <li>
-                            <div id = "favorites">
-                                <h2>{{ story[1] }}</h2> <!-- Story Title -->
+                Favorited Blogs: 
 
-                                <p><strong>Description</strong> {{ story[2] }}</p> <!-- Last Content -->
-                                <a id = view_recipe href="{{ url_for('recipe') }}"> View Recipe </a><br>
-                            </div> 
-                        </li>
-                    {% endfor %}
+                {% if info %}
+                    <ul>
+                        {% for sub in info %}
+                            <li>
+                                <div id = "favorites">
+                                    <h2>Title: {{ sub[3] }}</h2> 
+                                    <a id = view_recipe href="/catalog/{{ sub[0] }}"> View Recipe </a><br>
+                                </div> 
+                            </li>
+                        {% endfor %}
                     </ul>
                     <a id = login href="{{ url_for('login') }}">Log Out?</a><br>  
                 {% endif %} 
